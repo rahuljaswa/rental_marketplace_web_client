@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="app" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="app" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BorrowBear</title>
+    <meta name="description" content="BorrowBear lets you rent or borrow anything you can imagine online in seconds. Cameras, tents, books, basketballs, panini presses, speakers, cars, or clothing. BorrowBear is cheaper, faster, more fun, and more unique than buying or renting anywhere! Borrow from someone down the street or have it shipped across the country.">
+    <meta name="keywords" content="Rent, Products, Marketplace, Cameras, Tents, Books, Basketballs, Panini Presses, Speakers, Cars, Clothing">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <base href="/app">
+
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet/less" type="text/css" href="app.less" />
+</head>
+<body>
+    <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ui-view="header" class="header"></div>
+    <div ui-view="errors" class="errors"></div>
+    <div ui-view="content" class="content"></div>
+    <div ui-view="footer" class="footer"></div>
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script> -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/intl-tel-input/build/js/intlTelInput.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
+    <script src="bower_components/international-phone-number/releases/international-phone-number.min.js"></script>
+
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="app.js"></script>
+
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-cookie/angular-cookie.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-uuid-service/angular-uuid-service.min.js"></script>
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="bower_components/less/dist/less.min.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+    <script src="bower_components/ng-token-auth/dist/ng-token-auth.js"></script>
+
+    <script src="directives/directives.js"></script>
+
+    <script src="filters/filters.js"></script>
+
+    <script src="services/convenience.js"></script>
+    <script src="services/countries.js"></script>
+    <script src="services/keys.js"></script>
+    <script src="services/resources.js"></script>
+    <script src="services/static_content.js"></script>
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/" defer></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCN_sRya58DEwT7fEPsaZ27prpxl_raS2I&libraries=places" defer></script>
+
+    <script src="views/_account/accept_payments/accept_payments.js"></script>
+    <script src="views/_account/add_payment_method/add_payment_method.js"></script>
+    <script src="views/_account/login/login.js"></script>
+    <script src="views/_account/register/register.js"></script>
+    <script src="views/_account/request_password_reset/request_password_reset.js"></script>
+    <script src="views/_account/reset_password/reset_password.js"></script>
+    <script src="views/_account/verify_identity/verify_identity.js"></script>
+
+    <script src="views/errors/errors.js"></script>
+    <script src="views/footer/footer.js"></script>
+    <script src="views/home/home.js"></script>
+    <script src="views/list/list.js"></script>
+    <script src="views/navigation/navigation.js"></script>
+    <script src="views/product/product.js"></script>
+    <script src="views/profile/profile.js"></script>
+    <script src="views/rent_confirmation/rent_confirmation.js"></script>
+    <script src="views/search/search.js"></script>
+    <script src="views/tag/tag.js"></script>
+    <script src="views/tags/tags.js"></script>
+    <script src="views/rental/rental.js"></script>    
+</body>
+</html>

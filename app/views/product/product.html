@@ -1,0 +1,40 @@
+<div class="product-page" ng-if="product.id">
+	<div class="container">
+		<div class="col-xs-12 col-md-3 side-column">
+			<div ng-if="user.id == product.owner.id">
+				<p class="row">Thanks for being a great community member. Feel free to edit your product here.</p>
+				<br />
+				<button type="button" class="btn btn-primary" ui-sref="list({ productId: product.id })">Edit</button>
+				<button type="button" class="btn btn-danger" ng-if="product.active" ng-click="disableProduct()">Deactivate</button>
+				<button type="button" class="btn btn-success" ng-if="!product.active" ng-click="enableProduct()">Activate</button>
+			</div>
+
+			<div ng-if="user && (user.id != product.owner.id)">
+				<div class="form-group start-date">
+					<input type="text" id="startDateInput" class="form-control" uib-datepicker-popup="fullDate" ng-model="rentalForm.startDate" ng-focus="startDatePickerOpened()" ng-change="startDateChanged()" is-open="startDatePicker.opened" on-open-focus="false" datepicker-options="startDateOptions" ng-required="true" placeholder="Borrow date" show-button-bar="false">
+				</div>
+				<div class="form-group end-date" ng-class="{ 'has-error': endDateInvalid }">
+					<input type="text" class="form-control" uib-datepicker-popup="fullDate" ng-model="rentalForm.endDate" ng-focus="endDatePickerOpened()" ng-change="endDateChanged()" is-open="endDatePicker.opened" on-open-focus="false" datepicker-options="endDateOptions" ng-required="true" show-button-bar="false" placeholder="Return date">
+				</div>
+				<br />
+
+				<div class="row rental-cost-math">{{ product.price | currency : nil : 0 }} x {{ rentalForm.numberOfDays | number : 0 }} days</div>
+				<hr class="small" />
+				<div class="row rental-cost-total">Total: <strong>{{ rentalForm.rentalCost | currency : nil : 2 }}</strong></div>
+				<div class="row rental-cost-total">Security deposit: <strong>{{ rentalForm.securityDeposit | currency : nil : 2 }}</strong></div>
+
+				<br /><br />
+				<button type="button" class="btn btn-primary" ng-click="requestToBorrowButtonClicked()">Request to Borrow</button>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-9 content-column">
+			<h2 class="row">{{ product.title }}<span ng-if="!product.active"> (deactivated)</span></h2>
+			<p class="row"><strong>{{ product.price | currency : nil : 0 }} per day</strong> | {{ product.pickup_location.establishment_name }} | <a ng-href="{{ product.pickup_location.google_maps_url }}" target="_blank">{{ product.pickup_location.formatted_address }}</a></p>
+			<p class="row">{{ product.description }}</p>
+
+			<div class="images container">
+				<div class="col-lg-4 col-sm-6 col-xs-12 item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in product.image_urls track by $index"></div>
+			</div>
+		</div>
+	</div>
+</div>
