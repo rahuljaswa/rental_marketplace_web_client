@@ -1,0 +1,817 @@
+/*
+ *
+ ===================================
+ * Global Element Styles
+ ===================================
+ *
+ */
+ html, html.ng-scope body {
+ 	font: "Helvetica Neue",Helvetica,Arial,sans-serif;
+ 	font-size: 14px;
+ 	color: #484848;
+ 	min-width: 320px;
+ 	overflow-y: auto;
+ 	overflow-x: hidden;
+ 	label {
+ 		display: inline-block;
+ 		font-weight: normal;
+ 		vertical-align: middle;
+ 		width: 90%;
+ 		padding-left: 6px;
+ 		margin-bottom: 0;
+ 	}
+ 	input {
+ 		display: inline-block;
+ 		vertical-align: middle;
+ 	}
+ 	p {
+ 		white-space: pre-line;
+ 	}
+ 	a.btn.social-share {
+ 		display: inline-block;
+ 		font-size: 11px;
+ 		font-weight: bold;
+ 		border-radius: 2px;
+ 		padding: 5px 5px;
+ 		margin-right: 2px;
+ 		span.fa {
+ 			margin-right: 7px;
+ 		}
+ 	}
+ 	.btn-primary, .btn:disabled, .btn.disabled {
+ 		background-color: #14b694;
+ 		border-color: #14b694;
+ 	}
+ 	.btn:focus, .btn.focus {
+ 		background-color: #068568;
+ 		border-color: #068568;
+ 	}
+ 	div.wrapper {
+ 		min-height:100%;
+ 		position:relative;
+ 	}
+ 	.pac-container { 
+ 		z-index: 10000 !important; 
+ 	}
+ 	.pac-container:after {
+ 		background-image: none !important;
+ 		height: 0px;
+ 	}
+ 	input, button.btn, textarea, div.tags, div.input-group-addon, a.btn {
+ 		border-radius: 0;
+ 	}
+ 	input.masked {
+ 		-webkit-text-security: disc;
+ 	}
+ 	div.intl-tel-input {
+ 		display: block;
+ 	}
+ 	hr.small {
+ 		margin: 7px 0;
+ 	}
+ 	hr.large {
+ 		margin: 20px 0;
+ 	}
+ 	h2 {
+ 		font-weight: bold;
+ 		font-size: 30px;
+ 	}
+ 	h4 {
+ 		font-weight: bold;
+ 		font-size: 20px;	
+ 	}
+ 	div.errors.container {
+ 		max-width: 500px;
+ 		padding-left: 20px;
+ 		padding-right: 20px;
+ 		margin: 0 auto;
+ 	}
+ 	ol.breadcrumb {
+ 		text-align: center;
+ 		margin-bottom: 50px;
+ 	}
+ 	nav.pagination {
+ 		display: block;
+ 		margin: 0 auto;
+ 		text-align: center;
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Header / Footer
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.header {
+ 		nav.navbar-default {
+ 			background: #FFFFFF;
+ 			a:hover, a:visited, a:active, a.open, button:hover, button:visited, button:active, button.open {
+ 				text-decoration: none;
+ 				background-color: transparent;
+ 			}
+ 			a.navbar-brand {
+ 				padding-left: 8px;
+ 				padding-top: 10px;
+ 				img {
+ 					height: 34px;
+ 				}	
+ 			}
+ 		}
+ 	}
+ 	div.content {
+ 		padding-top: 70px;
+ 		padding-bottom: 553px;
+ 	}
+ 	div.footer {
+ 		max-height: 553px;
+ 		background-color: #f5f5f5;
+ 		text-align: center;
+ 		padding-top: 20px;
+ 		width: 100%;
+ 		position: absolute;
+ 		bottom: 0;
+ 		left: 0;
+ 		div.container {
+ 			max-width: 600px;
+ 			div.section {
+ 				h5 {
+ 					text-align: left;
+ 				}
+ 				ul, ul li {
+ 					text-align: left;
+ 					margin: 0;
+ 					padding: 0;
+ 					list-style-type: none;
+ 				}
+ 			}
+ 		}
+ 	}
+ 	div.copyright {
+ 		padding: 20px;
+ 		display: block;
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Search bars
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	form.search {
+ 		div.search-inputs-container {
+ 			display: block;
+ 			margin: 0 auto;
+ 			max-width: 1200px;
+ 			input.form-control, button {
+ 				display: inline-block;
+ 				margin: 20px 0;
+ 				height: 50px;
+ 				font-size: 14px;
+ 			}
+ 			button.btn-primary {
+ 				border: 1px solid #14b694;
+ 				background-color: #14b694;
+ 				font-weight: bold;
+ 				color: #fff;
+ 			}
+ 		}
+ 		div.search-inputs-container.products {
+ 			@side-margin: 20%;
+ 			@location-input-width: 35%;
+ 			@query-input-width: 40%;
+ 			@button-width: 25%;
+ 			input.location {
+ 				width: @location-input-width - (@side-margin / 3);
+ 				border-left: none;
+ 			}
+ 			input.query {
+ 				width: @query-input-width - (@side-margin / 3);
+ 				margin-left: @side-margin/2;
+ 			}
+ 			button.btn-primary {
+ 				width: @button-width - (@side-margin / 3);
+ 				margin-right: @side-margin/2;
+ 			}
+ 		}
+ 		div.search-inputs-container.tags {
+ 			@side-margin: 30%;
+ 			@query-input-width: 70%;
+ 			@button-width: 30%;
+ 			input.query {
+ 				width: @query-input-width - (@side-margin / 2);
+ 				margin-left: @side-margin/2;
+ 			}
+ 			button.btn-primary {
+ 				width: @button-width - (@side-margin / 2);
+ 				margin-right: @side-margin/2;
+ 			}
+ 		}
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Bootstrap Grid
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.container {
+ 		position: relative;
+ 		z-index: 20;
+ 		@media (min-width: 768px) {
+ 			.container {
+ 				width: 760px;
+ 			}
+ 		}
+ 		@media (min-width: 992px) {
+ 			.container {
+ 				width: 850px;
+ 			}
+ 		}
+ 		@media (min-width: 1200px) {
+ 			.container {
+ 				width: 1050px;
+ 			}
+ 		}
+ 		.header-row, .footer-row {
+ 			text-align: center;
+ 		}
+ 		.header-row.subtitle {
+ 			padding-bottom: 30px;
+ 		}
+ 		.header-row.title {
+ 			padding-top: 40px;
+ 			padding-bottom: 10px;
+ 		}
+ 		.footer-row {
+ 			padding-top: 40px;
+ 			padding-bottom: 40px;
+ 		}
+ 		.row {
+ 			margin-left: 0;
+ 			margin-right: 0;
+ 		}
+ 		.col-lg-1, 
+ 		.col-lg-10, 
+ 		.col-lg-11, 
+ 		.col-lg-12, 
+ 		.col-lg-2, 
+ 		.col-lg-3, 
+ 		.col-lg-4, 
+ 		.col-lg-5, 
+ 		.col-lg-6, 
+ 		.col-lg-7, 
+ 		.col-lg-8, 
+ 		.col-lg-9, 
+ 		.col-md-1, 
+ 		.col-md-10, 
+ 		.col-md-11, 
+ 		.col-md-12, 
+ 		.col-md-2, 
+ 		.col-md-3, 
+ 		.col-md-4, 
+ 		.col-md-5, 
+ 		.col-md-6, 
+ 		.col-md-7, 
+ 		.col-md-8, 
+ 		.col-md-9, 
+ 		.col-sm-1, 
+ 		.col-sm-10, 
+ 		.col-sm-11, 
+ 		.col-sm-12, 
+ 		.col-sm-2, 
+ 		.col-sm-3, 
+ 		.col-sm-4, 
+ 		.col-sm-5, 
+ 		.col-sm-6, 
+ 		.col-sm-7, 
+ 		.col-sm-8, 
+ 		.col-sm-9, 
+ 		.col-xs-1, 
+ 		.col-xs-10, 
+ 		.col-xs-11, 
+ 		.col-xs-12, 
+ 		.col-xs-2, 
+ 		.col-xs-3, 
+ 		.col-xs-4, 
+ 		.col-xs-5, 
+ 		.col-xs-6, 
+ 		.col-xs-7, 
+ 		.col-xs-8, 
+ 		.col-xs-9 {
+ 			padding: 8px;
+ 		}
+ 		div.item-gallery {
+ 			margin-bottom: 10px;
+ 			a, a:hover, a:visited {
+ 				color: white;
+ 				text-decoration: none;
+ 			}
+ 			div.item {
+ 				height: 200px;
+ 				background-color: #E9E9E9;
+ 				background-size: cover;
+ 				background-repeat: no-repeat;
+ 				background-position: center center;
+ 				margin-bottom: 8px;
+ 				border: 1px solid #dedede;
+ 			}
+ 			div.item-text {
+ 				display: block;
+ 				white-space: nowrap;
+ 				overflow: hidden;
+ 				width: 100%;
+ 				span.item-title {
+ 					color: #333333;
+ 				}
+ 				span.item-title-bold {
+ 					font-weight: bold;
+ 					color: #222222;
+ 				}
+ 			}
+ 		}
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Page: Home
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.home-page {
+ 		div.header {
+ 			padding: 50px;
+ 			text-align: center;
+ 			span.row.title {
+ 				font-size: 30px;
+ 			}
+ 			span.row.subtitle {
+ 				font-size: 18px;
+ 			}
+ 			span.stylized {
+ 				font-size: 33px;
+ 				color: #14b694;
+ 				font-weight: bold;
+ 			}
+ 			hr {
+ 				text-align: center;
+ 				border-color: grey;
+ 				width: 75px;
+ 				margin: 20px auto;
+ 			}
+ 		}
+ 		div.carousel {
+ 			height: 300px;
+ 			position: relative;
+ 			z-index: 10;
+ 			margin-top: -20px;
+ 			div.carousel-caption {
+ 				display: block;
+ 				margin: 60px auto;
+ 				h2 {
+ 					text-align: center;
+ 					position: relative;
+ 					display: inline;
+ 					padding: 10px;
+ 					background-color: rgba(0,0,0,.5);
+ 					text-shadow: none;
+ 					line-height: 50px;
+ 				}
+ 			}
+ 			a.carousel-control, ol.carousel-indicators {
+ 				display: none;
+ 			}
+ 			div.carousel-inner, div.text-center, div.item {
+ 				width: 100%;
+ 				height: 100%;
+ 			}
+ 			div.text-center {
+ 				div.image {
+ 					width: 100%;
+ 					height: 100%;
+ 					background-repeat: no-repeat;
+ 					background-position: center center;
+ 					-webkit-background-size: cover;
+ 					-moz-background-size: cover;
+ 					-o-background-size: cover;
+ 					background-size: cover;
+ 				}
+ 			}
+ 		}
+ 		form.search {
+ 			margin-top: 40px;
+ 		}
+ 		.row button, .row a {
+ 			border: 1px solid #c4c4c4;
+ 			border-radius: 2px;
+ 			background: white;
+ 			text-align: center;
+ 			vertical-align: middle;
+ 			font-weight: bold;
+ 			padding: 9px 80px;
+ 			font-size: 16px;
+ 			color: rgb(72,72,72);
+ 		}
+ 		.row a:hover {
+ 			text-decoration: none;
+ 		}
+ 		div.tags.container {
+ 			margin-top: 90px;
+ 		}
+ 	}
+ }
+
+/*
+ *
+ ===================================
+ * Page: Info Pages
+ ===================================
+ *
+ */
+ div.info-page {
+ 	h1 {
+ 		text-align: center;
+ 	}
+ }
+
+/*
+ *
+ ===================================
+ * Page: Product
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.product-page {
+ 		div.side-column, div.content-column {
+ 			padding-left: 30px;
+ 			padding-right: 30px;
+ 		}
+ 		div.side-column {
+ 			margin-bottom: 50px;
+ 			div.form-group.start-date {
+ 				margin-bottom: 0;
+ 			}
+ 			div.form-group.end-date {
+ 				input {
+ 					border-top: none;
+ 				}
+ 			}
+ 			button, a {
+ 				width: 100%;
+ 				text-align: center;
+ 				margin-bottom: 10px;
+ 			}
+ 			div.rental-cost-total {
+ 				text-align: right;
+ 			}
+ 		}
+ 		div.content-column {
+ 			h2, p {
+ 				text-align: left;
+ 				width: 100%;
+ 				margin-left: 0;
+ 				margin-right: 0;
+ 				margin-top: 0;
+ 			}
+ 			div.container {
+ 				margin-top: 20px;
+ 				padding: 0;
+ 				width: 100%;
+ 				height: 100%;
+ 				div.item {
+ 					border: none;
+ 					margin: 0;
+ 				}
+ 			}
+ 		}
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Page: Rent Confirmation
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.rent-confirmation-page {
+ 		div.container {
+ 			div.form-group div.no-padding {
+ 				padding-left: 0;
+ 			}
+ 			div.side-column {
+ 				h4, p {
+ 					text-align: left;
+ 					margin-left: 0;
+ 				}
+ 				.row {
+ 					margin: 15px 0;
+ 				}
+ 			}
+ 			div.content-column {
+ 				margin-bottom: 30px;
+ 				h2, p {
+ 					text-align: left;
+ 					width: 100%;
+ 					margin-left: 0;
+ 					margin-right: 0;
+ 					margin-top: 0;
+ 				}
+ 				h2.row {
+ 					margin-bottom: 20px;
+ 				}
+ 				div.row.costs {
+ 					padding: 10px 20px 20px 20px;
+ 					width: 300px;
+ 					margin-top: 20px;
+ 					background-color: #eeeeee;
+ 					border: 1px solid #dddddd;
+ 					border-radius: 6px;
+ 					label {
+ 						margin-bottom: 20px;
+ 						text-transform: uppercase;
+ 						font-weight: bold;
+ 						padding-left: 0;
+ 					}
+ 					hr {
+ 						border-color: #ccc;
+ 					}
+ 				}
+ 				div.container {
+ 					margin-top: 20px;
+ 					padding: 0;
+ 					width: 100%;
+ 					height: 100%;
+ 				}
+ 				div.terms-of-service {
+ 					display: block;
+ 					margin-top: 15px;
+ 					margin-bottom: 20px;
+ 					text-align: left;
+ 					width: 100%;
+ 				}
+ 				button.create-rental {
+ 					width: 200px;
+ 				}
+ 			}
+ 		}
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Page: Account
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.login-page, 
+ 	div.registration-page, 
+ 	div.request-password-reset-page, 
+ 	div.reset-password-page, 
+ 	div.verify-identity-page, 
+ 	div.accept-payments-page,
+ 	div.add-payment-method-page {
+ 		.text {
+ 			text-align: center;
+ 			margin-bottom: 40px;
+ 		}
+ 		h5.text {
+ 			text-align: left;
+ 		}
+ 		h5.centered {
+ 			text-align: center;
+ 		}
+ 		.description {
+ 			text-align: left;
+ 		}
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Page: Tag
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.tag-page {
+ 		div.container {
+ 			button {
+ 				display: block;
+ 				margin: 10px auto;
+ 			}
+ 		}
+ 	}
+ }
+
+
+/*
+ *
+ ===================================
+ * Page: Rental
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.rental-page {
+ 		div.container {
+ 			div.content-column, div.side-column {
+ 				padding: 25px;
+ 			}
+ 			div.content-column {
+ 				margin-top: 25px;
+ 				form, .container {
+ 					width: 100%;
+ 					padding-left: 0px;
+ 					padding-right: 0px;
+ 					div {
+ 						padding-left: 0px;
+ 						padding-right: 0px;
+ 					}
+ 					button {
+ 						width: 100%;
+ 					}
+ 				}
+ 				div.message {
+ 					margin-top: 20px;
+ 					width: 100%;
+ 					.message-top-level {
+ 						display: inline-block;
+ 						vertical-align: middle;
+ 					}
+ 					div.message-container {
+ 						div.message-box {
+ 							padding: 10px 15px;
+ 							display: inline-block;
+ 							border: 1px solid #ddd;
+ 						}
+ 					}
+ 					img {
+ 						padding: 0;
+ 						border-radius: 50%;
+ 						border: 1px solid #444;
+ 						max-width: 50px;
+ 						max-height: 50px;
+ 						display: block;
+ 						margin: 0 auto;
+ 					}
+ 				}
+ 				div.message.current-user div.message-box {
+ 					float: left;
+ 				}
+ 				div.message.other-user div.message-box {
+ 					float: right;
+ 				}
+ 			}
+ 			div.side-column {
+ 				div.form-inline.row {
+ 					margin-top: 15px;
+ 					margin-bottom: 15px;
+ 				}
+ 			}
+ 		}
+ 	}
+ }
+
+
+ /*
+ *
+ ===================================
+ * Page: Profile
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.profile-page {
+ 		div.tab-pane {
+ 			margin-top: 50px; 
+ 		}
+ 		ul.profile, table {
+ 			margin-bottom: 50px;
+ 		}
+ 		table {
+ 			button {
+ 				height: auto;
+ 				font-weight: bold;
+ 				font-size: 12px;
+ 				padding: 3px 6px;
+ 			}
+ 			tr td, tr th {
+ 				text-align: center;
+ 			}
+ 			tr td:first-child, tr th:first-child {
+ 				text-align: left;
+ 			}
+ 		}
+ 		div.account-information {
+ 			margin-bottom: 25px;
+ 		}
+ 		a.btn {
+ 			display: block;
+ 			width: 140px;
+ 			margin-bottom: 15px;
+ 		}
+ 	}
+ }
+
+
+ /*
+ *
+ ===================================
+ * Page: Create / Edit
+ ===================================
+ *
+ */
+ html.ng-scope body {
+ 	div.list-page, div.accept-payments-page {
+ 		@image-block-height: 100px;
+ 		.description {
+ 			text-align: left;
+ 			margin-bottom: 15px;
+ 		}
+ 		h2.row {
+ 			text-align: center;
+ 		}
+ 		div.image-upload-container {
+ 			padding-top: 20px;
+ 			white-space: nowrap;
+ 			margin-bottom: 40px;
+ 		}
+ 		div.image-upload, div.image-uploaded, div.image-uploading {
+ 			vertical-align: middle;
+ 		}
+ 		div.image-upload {
+ 			display: inline-block !important;
+ 			height: @image-block-height;
+ 			text-align: center;
+ 			background-color: #f3f3f3;
+ 			color: #bbb;
+ 			background-size: cover;
+ 			background-repeat: no-repeat;
+ 			background-position: center center;
+ 			span {
+ 				display: block;
+ 			}
+ 			span.glyphicon {
+ 				margin: 25px 0 15px 0;
+ 			}
+ 		}
+ 		div.image-upload:hover, a:hover {
+ 			cursor: pointer;
+ 		}
+ 		div.image-uploaded, div.image-uploading {
+ 			border-radius: 0;
+ 			margin: 0;
+ 			display: inline-block;
+ 			height: @image-block-height;
+ 			background-size: cover;
+ 			background-repeat: no-repeat;
+ 			background-position: center center;
+ 			img {
+ 				height: 100%;
+ 				width: 100%;
+ 			}
+ 		}
+ 		div.image-uploaded {
+ 			position: relative;
+ 			a {
+ 				position: absolute;
+ 				top: 0;
+ 				right: 0;
+ 				height: 30px;
+ 				width: 30px;
+ 				background-color: rgba(0,0,0,.8);
+ 				span {
+ 					height: 100%;
+ 					width: 100%;
+ 					text-align: center;
+ 					line-height: 27px;
+ 					color: white;
+ 				}
+ 			}
+ 		}
+ 	}
+ }

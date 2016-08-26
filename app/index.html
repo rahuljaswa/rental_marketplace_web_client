@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="app" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="app" class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="fragment" content="!">
+
+    <title>BorrowBear - Borrow, Don't Buy</title>
+
+    <meta name="description" content="Borrow, don't buy. BorrowBear connects people who need stuff with people who have stuff. Save money, save waste, save someone's day.">
+    <meta name="keywords" content="Rent, Products, Marketplace, Cameras, Tents, Books, Basketballs, Panini Presses, Speakers, Cars, Clothing">
+
+    <meta property="og:title" content="{{ meta_og_title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ meta_og_url }}" />
+    <meta property="og:image" content="{{ meta_og_image }}" />
+    <meta property="og:description" content="Borrow, don't buy. BorrowBear connects people who need stuff with people who have stuff. Save money, save waste, save someone's day." />
+    <meta property="og:site_name" content="BorrowBear" />
+    <meta property="fb:app_id" content="438922303168373" />
+
+    <base href="/app">
+
+    <link rel="stylesheet" href="bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet/less" type="text/css" href="app.less" />
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-84263676-1', 'auto');
+      ga('send', 'pageview');
+  </script>
+</head>
+<body>
+    <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="wrapper">
+        <div ui-view="header" class="header"></div>
+        <div ui-view="errors" class="errors"></div>
+        <div ui-view="content" class="content"></div>
+        <div ui-view="footer" class="footer"></div>
+    </div>
+
+    <!-- In production use:
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script> -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/intl-tel-input/build/js/intlTelInput.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
+    <script src="bower_components/international-phone-number/releases/international-phone-number.min.js"></script>
+
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+    <script src="bower_components/angular-material/angular-material.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="app.js"></script>
+
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-cookie/angular-cookie.min.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="bower_components/angular-socialshare/dist/angular-socialshare.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-uuid-service/angular-uuid-service.min.js"></script>
+    <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    <script src="bower_components/less/dist/less.min.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+    <script src="bower_components/ng-token-auth/dist/ng-token-auth.js"></script>
+
+    <script src="directives/directives.js"></script>
+
+    <script src="filters/filters.js"></script>
+
+    <script src="services/convenience.js"></script>
+    <script src="services/keys.js"></script>
+    <script src="services/localization.js"></script>
+    <script src="services/pagination.js"></script>
+    <script src="services/resources.js"></script>
+    <script src="services/static_content.js"></script>
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/" defer></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2f1Po-tr-r95Z7ZtM1Ov-JFzs3Q-1afw&libraries=places" defer></script>
+
+    <script src="views/_account/accept_payments/accept_payments.js"></script>
+    <script src="views/_account/add_payment_method/add_payment_method.js"></script>
+    <script src="views/_account/login/login.js"></script>
+    <script src="views/_account/register/register.js"></script>
+    <script src="views/_account/request_password_reset/request_password_reset.js"></script>
+    <script src="views/_account/reset_password/reset_password.js"></script>
+    <script src="views/_account/verify_identity/verify_identity.js"></script>
+
+    <script src="views/_static/best_practices/best_practices.js"></script>
+    <script src="views/_static/help/help.js"></script>
+    <script src="views/_static/safety/safety.js"></script>
+    <script src="views/_static/terms_and_privacy/terms_and_privacy.js"></script>
+    <script src="views/_static/why_lend/why_lend.js"></script>
+    <script src="views/_static/why_rent/why_rent.js"></script>
+
+    <script src="views/_static/_policies/cancellation_policy/cancellation_policy.js"></script>
+    <script src="views/_static/_policies/lender_policy/lender_policy.js"></script>
+    <script src="views/_static/_policies/renter_policy/renter_policy.js"></script>
+
+    <script src="views/errors/errors.js"></script>
+    <script src="views/footer/footer.js"></script>
+    <script src="views/home/home.js"></script>
+    <script src="views/list/list.js"></script>
+    <script src="views/navigation/navigation.js"></script>
+    <script src="views/product/product.js"></script>
+    <script src="views/profile/profile.js"></script>
+    <script src="views/rent_confirmation/rent_confirmation.js"></script>
+    <script src="views/search/search.js"></script>
+    <script src="views/tag/tag.js"></script>
+    <script src="views/tags/tags.js"></script>
+    <script src="views/rental/rental.js"></script>    
+</body>
+</html>

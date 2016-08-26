@@ -1,0 +1,38 @@
+<div class="tag-page" ng-if="tag.id">
+	<div class="container">
+		<h2 class="row header-row title">{{ tag.name }}</h2>
+		<button class="btn btn-success" ng-if="user.admin && !tag.featured" ng-click="toggleFeaturedStatus()">Feature Tag</button>
+		<button class="btn btn-danger" ng-if="user.admin && tag.featured" ng-click="toggleFeaturedStatus()">Unfeature Tag</button>
+		<p class="row header-row subtitle">Check out the top results for {{ tag.name }}</p>
+
+		<div class="products container">
+			<div ng-class="shouldDoubleLengthWithOffsetIndex(1, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="product in products.data">
+				<a ng-href="/product/{{ product.id }}">
+					<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}"></div>
+					<div class="item-text">
+						<span class="item-title-bold">{{ product.price | currency : nil : 0 }}</span>
+						<span class="item-title">{{ product.title }}</span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<nav aria-label="Page navigation" class="pagination" ng-if="products.data.length > 0">
+		<ul class="pagination">
+			<li ng-class="{ disabled: query.page == 1 }" ng-disabled="query.page == 1">
+				<a ng-href="{{ paginatedURLWithOffset(query.page, -1, last_page) }}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li ng-repeat="page in pages_to_display" ng-class="{ active: query.page == page }">
+				<a ng-href="{{ paginatedURLWithOffset(page, 0, last_page) }}">{{ page }}</a>
+			</li>
+			<li ng-class="{ disabled: query.page == last_page }" ng-disabled="query.page == last_page">
+				<a ng-href="{{ paginatedURLWithOffset(query.page, 1, last_page) }}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>

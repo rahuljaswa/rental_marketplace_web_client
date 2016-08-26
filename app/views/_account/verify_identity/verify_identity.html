@@ -1,0 +1,83 @@
+<div class="verify-identity-page" ng-if="user">
+	<fieldset ng-disabled="formDisabled">
+		<form class="form-horizontal list container">
+			<h2 class="row text">Verify identity</h2>
+			<h5 class="text col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">Borrowers and borrowees are real people. Please verify a few details about your account so that you can start using the platform.</h5>
+
+			<ol class="breadcrumb col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+				<li>
+					<a ng-click="setCurrentState(StateEnum.EMAIL_ENTRY)" ng-if="canSetState(StateEnum.EMAIL_ENTRY)">
+						{{ StateEnum.properties[StateEnum.EMAIL_ENTRY].breadcrumbTitle }}
+					</a>
+					<span ng-if="!canSetState(StateEnum.EMAIL_ENTRY)">
+						{{ StateEnum.properties[StateEnum.EMAIL_ENTRY].breadcrumbTitle }}
+					</span>
+					<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="stateCompleted(StateEnum.EMAIL_ENTRY)"></span>
+				</li>
+				<li>
+					<a ng-click="setCurrentState(StateEnum.EMAIL_VERIFICATION)" ng-if="canSetState(StateEnum.EMAIL_VERIFICATION)">
+						{{ StateEnum.properties[StateEnum.EMAIL_VERIFICATION].breadcrumbTitle }}
+					</a>
+					<span ng-if="!canSetState(StateEnum.EMAIL_VERIFICATION)">
+						{{ StateEnum.properties[StateEnum.EMAIL_VERIFICATION].breadcrumbTitle }}
+					</span>
+					<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="stateCompleted(StateEnum.EMAIL_VERIFICATION)"></span>
+				</li>
+				<li>
+					<a ng-click="setCurrentState(StateEnum.PHONE_NUMBER_ENTRY)" ng-if="canSetState(StateEnum.PHONE_NUMBER_ENTRY)">
+						{{ StateEnum.properties[StateEnum.PHONE_NUMBER_ENTRY].breadcrumbTitle }}
+					</a>
+					<span ng-if="!canSetState(StateEnum.PHONE_NUMBER_ENTRY)">
+						{{ StateEnum.properties[StateEnum.PHONE_NUMBER_ENTRY].breadcrumbTitle }}
+					</span>
+					<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="stateCompleted(StateEnum.PHONE_NUMBER_ENTRY)"></span>
+				</li>
+				<li>
+					<a ng-click="setCurrentState(StateEnum.PHONE_NUMBER_VERIFICATION)" ng-if="canSetState(StateEnum.PHONE_NUMBER_VERIFICATION)">
+						{{ StateEnum.properties[StateEnum.PHONE_NUMBER_VERIFICATION].breadcrumbTitle }}
+					</a>
+					<span ng-if="!canSetState(StateEnum.PHONE_NUMBER_VERIFICATION)">
+						{{ StateEnum.properties[StateEnum.PHONE_NUMBER_VERIFICATION].breadcrumbTitle }}
+					</span>
+					<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-if="stateCompleted(StateEnum.PHONE_NUMBER_VERIFICATION)"></span>
+				</li>
+			</ol>
+
+			<div class="form-state" ng-if="currentState == StateEnum.PHONE_NUMBER_ENTRY">
+				<div class="form-group">
+					<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" class="form-control" international-phone-number id="phone-number-entry-input" default-country="us" ng-model="form.phone_number">
+					</div>
+				</div>
+			</div>
+
+			<div class="form-state" ng-if="currentState == StateEnum.PHONE_NUMBER_VERIFICATION">
+				<div class="form-group">
+					<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" maxlength="4" class="form-control" ng-model="form.phone_number_verification_code" placeholder="0000">
+					</div>
+				</div>
+			</div>
+
+			<div class="form-state" ng-if="currentState == StateEnum.EMAIL_ENTRY">
+				<div class="form-group">
+					<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<h5 class="row text centered">{{ fetchedUser.email }}</h5>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-state" ng-if="currentState == StateEnum.EMAIL_VERIFICATION">
+				<div class="form-group">
+					<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" maxlength="4" class="form-control" ng-model="form.email_verification_code" placeholder="0000">
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 text">{{ StateEnum.properties[currentState].description }}</div>
+
+			<button type="button" ng-click="buttonPressed()" class="btn btn-primary col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" ng-disabled="formDisabled || !validates()">{{ StateEnum.properties[currentState].button_text }}</button>
+		</form>
+	</fieldset>
+</div>

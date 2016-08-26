@@ -1,0 +1,37 @@
+<div class="search-page">
+	<form class="navbar-form search">
+		<div class="search-inputs-container products">
+			<input type="text" ng-model="query.query" ng-change="queryInputChanged()" ng-model-options='{ debounce: 200 }' class="form-control query" placeholder="Search" autofocus><input type="text" ng-model="query.locality" class="form-control location" placeholder="Location" autofocus google-places-cities-search><button type="button" ng-click="searchButtonPressed()" class="btn btn-primary">Search</button>
+		</div>
+	</form>
+
+	<div class="products container">
+		<div ng-class="shouldDoubleLengthWithOffsetIndex(0, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="product in products.data">
+			<a ng-href="product/{{ product.id }}">
+				<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}"></div>
+				<div class="item-text">
+					<span class="item-title-bold">{{ product.price | currency : nil : 0 }}</span>
+					<span class="item-title">{{ product.title }}</span>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<nav aria-label="Page navigation" class="pagination" ng-if="products.data.length > 0">
+		<ul class="pagination">
+			<li ng-class="{ disabled: query.page == 1 }" ng-disabled="query.page == 1">
+				<a ng-href="{{ paginatedURLWithOffset(query.page, -1, last_page) }}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<li ng-repeat="page in pages_to_display" ng-class="{ active: query.page == page }">
+				<a ng-href="{{ paginatedURLWithOffset(page, 0, last_page) }}">{{ page }}</a>
+			</li>
+			<li ng-class="{ disabled: query.page == last_page }" ng-disabled="query.page == last_page">
+				<a ng-href="{{ paginatedURLWithOffset(query.page, 1, last_page) }}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>
