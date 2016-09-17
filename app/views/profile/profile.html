@@ -46,7 +46,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="product in fetchedUser.products">
-							<td><a ui-sref="product({ productId: product.id })">{{ product.title }}</a></td>
+							<td><a ng-href="product/{{ product.id }}">{{ product.title }}</a></td>
 							<td>
 								<span ng-if="product.active">Active</span>
 								<span ng-if="!product.active">Disabled</span>
@@ -77,7 +77,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="rental in fetchedUser.rentals">
-							<td><a ui-sref="rental({ rentalId: rental.id })">{{ rental.product.title }}</a></td>
+							<td><a ng-href="rental/{{ rental.id }}">{{ rental.product.title }}</a></td>
 							<td><span style="text-transform: capitalize;">{{ rental.status }}</span></td>
 							<td>{{ rental.starts_at | date:'EEE, MMM d' }}</td>
 							<td>{{ rental.ends_at | date:'EEE, MMM d' }}</td>
@@ -90,14 +90,14 @@
 
 			<div role="tabpanel" class="tab-pane" ng-class="{active : (selectedIndex == StateEnum.PAYMENTS)}" id="payments">
 				<div class="account-information">
-					<a ui-sref="acceptPayments" class="btn btn-primary" ng-if="!accountInformation.last_four">Setup Payout Info</a>
-					<a ui-sref="acceptPayments" class="btn btn-primary" ng-if="accountInformation.last_four">Edit Payout Info</a>
+					<a href="/account/accept_payments" class="btn btn-primary" ng-if="!accountInformation.last_four">Setup Payout Info</a>
+					<a href="/account/accept_payments" class="btn btn-primary" ng-if="accountInformation.last_four">Edit Payout Info</a>
 					<span ng-if="accountInformation.bank_name">{{ accountInformation.bank_name }} ending in {{ accountInformation.last_four }}</span>
 					<span ng-if="!accountInformation.last_four">Please provide outbound payment information so we can pay you for your listings. As always, all sensitive information is handled securely and is never stored on our servers.</span>
 				</div>
 
 				<div ng-if="customerInformation">
-					<a ui-sref="addPaymentMethod" class="btn btn-primary">Add credit card</a>
+					<a href="/account/add_payment_method" class="btn btn-primary">Add credit card</a>
 					<span ng-if="customerInformation.cards.length == 0">Add a credit card to start renting out items.</span>
 					<table class="col-lg-12 table table-bordered table-responsive" ng-if="customerInformation.cards.length > 0">
 						<thead>

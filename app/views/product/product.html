@@ -4,7 +4,7 @@
 			<div ng-if="user.id == product.owner.id">
 				<p class="row">Thanks for being a great community member. Feel free to edit your product here.</p>
 				<br />
-				<button type="button" class="btn btn-primary" ui-sref="list({ productId: product.id })">Edit</button>
+				<button type="button" class="btn btn-primary" ui-sref="list({ productId: product.id })" href>Edit</button>
 				<button type="button" class="btn btn-danger" ng-if="product.active" ng-click="disableProduct()">Deactivate</button>
 				<button type="button" class="btn btn-success" ng-if="!product.active" ng-click="enableProduct()">Activate</button>
 			</div>

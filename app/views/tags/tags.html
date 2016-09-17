@@ -8,7 +8,7 @@
 	<div class="tags container">
 		<div ng-class="shouldDoubleLengthWithOffsetIndex(1, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12" ng-repeat="tag in tags">
 			<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ tag.image_url }})'}">
-				<a ui-sref="tag({ tagId: tag.id })">
+				<a ng-href="tag/{{ tag.id }}">
 					<div class="item-title"><div class="text-center"><h2>{{ tag.name }}</h2></div></div>
 				</a>
 			</div>
