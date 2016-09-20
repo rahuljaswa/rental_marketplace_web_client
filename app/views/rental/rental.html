@@ -29,20 +29,21 @@
 				</form>
 			</fieldset>
 			<div class="message" ng-repeat="message in rental.messages | orderBy:'-created_at'" ng-class="(message.sender.id == user.id) ? 'current-user' : 'other-user'">
-				<div ng-if="message.sender.id == user.id" class="col-xs-2 message-top-level">
-					<img ng-src="{{ message.sender.image_url }}" class="img-rounded">
-				</div>
-				<div class="message-container col-xs-10 message-top-level">
-					<div class="message-box">
-						<div class="message-text"><strong>{{ message.sender.username }}</strong> | {{ message.created_at | date:'MMM d, h:mm a' }}</div>
-						<div class="message-text">{{ message.text }}</div>
+				<div class="row">
+					<div ng-if="message.sender.id == user.id" class="col-xs-2 message-top-level">
+						<img ng-src="{{ message.sender.image_url }}" class="img-rounded">
+					</div>
+					<div class="message-container col-xs-10 message-top-level">
+						<div class="message-box">
+							<div class="message-text"><strong>{{ message.sender.username }}</strong> | {{ message.created_at | date:'MMM d, h:mm a' }}</div>
+							<div class="message-text">{{ message.text }}</div>
+						</div>
+					</div>
+					<div ng-if="message.sender.id != user.id" class="col-xs-2 message-top-level">
+						<img ng-src="{{ message.sender.image_url }}" class="img-rounded">
 					</div>
 				</div>
-				<div ng-if="message.sender.id != user.id" class="col-xs-2 message-top-level">
-					<img ng-src="{{ message.sender.image_url }}" class="img-rounded">
-				</div>
 			</div>
-
 		</div>
 	</div>
 </div>

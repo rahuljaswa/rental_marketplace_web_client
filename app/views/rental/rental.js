@@ -1,6 +1,6 @@
 angular.module('app.rental', [])
 
-.controller('RentalController', ['$scope', '$http', '$stateParams', 'Rentals', 'Messages', function($scope, $http, $stateParams, Rentals, Messages) {
+.controller('RentalController', ['$rootScope', '$scope', '$http', '$stateParams', 'Rentals', 'Messages', function($rootScope, $scope, $http, $stateParams, Rentals, Messages) {
 	document.title = "BorrowBear - Rental";
 
 	$scope.message = {
