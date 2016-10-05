@@ -1,19 +1,18 @@
 'use strict';
 
-var superstatic = require('superstatic/lib/server');
+var express = require('express');
+var app = express();
 
-var spec = {
-  port: (process.env.PORT || 8000),
-  config: {
-    public: './app'
-  },
-  cwd: __dirname,
-  gzip: true,
-  debug: true
-};
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_TOKEN));
 
-var app = superstatic(spec);
-app.listen(function(err) {
-  if (err) { console.log(err); }
-  console.log('Superstatic now serving on ' + spec.port.toString());
+var port = process.env.PORT || 8000;
+
+app.use(express.static(__dirname + '/app'));
+
+app.all('/*', function(req, res) {
+	res.sendfile('app/index.html');
+});
+
+app.listen(port, function() {
+	console.log('Our app is running on http://localhost:' + port);
 });
