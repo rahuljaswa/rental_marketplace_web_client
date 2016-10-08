@@ -40,11 +40,12 @@
     <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <div ui-view="header" class="header"></div>
-    <div ui-view="errors" class="errors"></div>
-    <div ui-view="content" class="content"></div>
-    <div ui-view="footer" class="footer"></div>
+    <div class="wrapper">
+        <div ui-view="header" class="header"></div>
+        <div ui-view="errors" class="errors"></div>
+        <div ui-view="content" class="content"></div>
+        <div ui-view="footer" class="footer"></div>
+    </div>
 
     <!-- In production use:
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script> -->
@@ -92,6 +93,19 @@
     <script src="views/_account/request_password_reset/request_password_reset.js"></script>
     <script src="views/_account/reset_password/reset_password.js"></script>
     <script src="views/_account/verify_identity/verify_identity.js"></script>
+
+    <script src="views/_static/about/about.js"></script>
+    <script src="views/_static/best_practices/best_practices.js"></script>
+    <script src="views/_static/careers/careers.js"></script>
+    <script src="views/_static/cityscape/cityscape.js"></script>
+    <script src="views/_static/disaster_response/disaster_response.js"></script>
+    <script src="views/_static/help/help.js"></script>
+    <script src="views/_static/inspiration/inspiration.js"></script>
+    <script src="views/_static/policies/policies.js"></script>
+    <script src="views/_static/safety/safety.js"></script>
+    <script src="views/_static/staff_picks/staff_picks.js"></script>
+    <script src="views/_static/terms_and_privacy/terms_and_privacy.js"></script>
+    <script src="views/_static/why_rent/why_rent.js"></script>
 
     <script src="views/errors/errors.js"></script>
     <script src="views/footer/footer.js"></script>

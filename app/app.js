@@ -1,6 +1,52 @@
 'use strict';
 
-angular.module('app', ['app.errors', 'app.navigation', 'app.convenience', 'app.filters', 'app.keys', 'app.resources', 'app.staticContent', 'app.countries', 'app.directives', 'app.addPaymentMethod', 'app.footer', 'app.list', 'app.home', 'app.search', 'app.login', 'app.product', 'app.profile', 'app.register', 'app.tag', 'app.tags', 'app.rental', 'app.rentConfirmation', 'app.requestPasswordReset', 'app.resetPassword', 'app.verifyIdentity', 'app.acceptPayments', 'ngCookies', 'ng-token-auth', 'ngMaterial', 'ui.bootstrap', 'ui.router', 'ngFileUpload', 'internationalPhoneNumber'])
+angular.module('app', [
+	'app.about',
+	'app.acceptPayments', 
+	'app.addPaymentMethod', 
+	'app.best_practices',
+	'app.careers',
+	'app.cityscape',
+	'app.convenience',
+	'app.countries', 
+	'app.directives',
+	'app.disaster_response',
+	'app.errors', 
+	'app.filters', 
+	'app.footer', 
+	'app.help',
+	'app.home', 
+	'app.inspiration',
+	'app.keys', 
+	'app.list', 
+	'app.login', 
+	'app.navigation', 
+	'app.policies',
+	'app.product', 
+	'app.profile', 
+	'app.register', 
+	'app.rental', 
+	'app.rentConfirmation', 
+	'app.requestPasswordReset', 
+	'app.resetPassword', 
+	'app.resources', 
+	'app.safety',
+	'app.search', 
+	'app.staff_picks',
+	'app.staticContent', 
+	'app.tag', 
+	'app.tags', 
+	'app.terms_and_privacy',
+	'app.verifyIdentity', 
+	'app.why_rent',
+	'internationalPhoneNumber',
+	'ngCookies', 
+	'ngFileUpload', 
+	'ngMaterial',
+	'ng-token-auth', 
+	'ui.bootstrap', 
+	'ui.router'
+	])
 
 .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', '$authProvider', '$resourceProvider', '$httpProvider', function($locationProvider, $stateProvider, $urlRouterProvider, $authProvider, $resourceProvider, $httpProvider) {
 	$locationProvider.html5Mode(true);
@@ -419,6 +465,210 @@ angular.module('app', ['app.errors', 'app.navigation', 'app.convenience', 'app.f
 		},
 		resolve: {
 			authenticate: authenticateAndVerify
+		}
+	})
+	.state('about', {
+		url:'/about',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/about/about.html',
+				controller: 'AboutController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('careers', {
+		url:'/careers',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/careers/careers.html',
+				controller: 'CareersController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('help', {
+		url:'/help',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/help/help.html',
+				controller: 'HelpController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('policies', {
+		url:'/policies',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/policies/policies.html',
+				controller: 'PoliciesController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('disaster_response', {
+		url:'/disaster_response',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/disaster_response/disaster_response.html',
+				controller: 'DisasterResponseController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('terms_and_privacy', {
+		url:'/terms_and_privacy',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/terms_and_privacy/terms_and_privacy.html',
+				controller: 'TermsAndPrivacyController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('cityscape', {
+		url:'/cityscape',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/cityscape/cityscape.html',
+				controller: 'CityscapeController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('inspiration', {
+		url:'/inspiration',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/inspiration/inspiration.html',
+				controller: 'InspirationController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('staff_picks', {
+		url:'/staff_picks',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/staff_picks/staff_picks.html',
+				controller: 'StaffPicksController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('why_rent', {
+		url:'/why_rent',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/why_rent/why_rent.html',
+				controller: 'WhyRentController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('best_practices', {
+		url:'/best_practices',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/best_practices/best_practices.html',
+				controller: 'BestPracticesController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('safety', {
+		url:'/safety',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/safety/safety.html',
+				controller: 'SafetyController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
 		}
 	});
 }])

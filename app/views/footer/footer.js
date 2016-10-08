@@ -1,5 +1,5 @@
 angular.module('app.footer', [])
 
-.controller('FooterController', ['$scope', function($scope) {
+.controller('FooterController', [function() {
 	
 }]);
