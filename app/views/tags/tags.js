@@ -4,8 +4,10 @@ angular.module('app.tags', [])
 	document.title = "BorrowBear - Search Categories";
 
 	$scope.tags = [];
-	$scope.query = {};
-	$scope.query.query = "";
+	$scope.query = { 
+		query: "", 
+		page: 1
+	};
 
 	$scope.$watch('query.query', function() {
 		if (!$scope.query.query || !$scope.query.query.length) {

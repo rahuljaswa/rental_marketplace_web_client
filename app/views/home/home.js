@@ -12,7 +12,8 @@ angular.module('app.home', [])
 		longitude: -122.431297,
 		radius: 20,
 		active: true,
-		limit: 7
+		limit: 7,
+		page: 1
 	};
 
 	$scope.products = Products.query($scope.productsQuery);
