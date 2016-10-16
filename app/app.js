@@ -60,7 +60,7 @@ angular.module('app', [
 		get: { method: 'GET' },
 		create: { method: 'POST' },
 		update: { method: 'PUT' },
-		query: { method: 'GET', isArray: true },
+		query: { method: 'GET', isArray: false },
 		delete: { method: 'DELETE' }
 	};
 
@@ -335,7 +335,7 @@ angular.module('app', [
 		}
 	})
 	.state('search', {
-		url:'/search?query&latitude&longitude&locality&radius',
+		url:'/search?query&latitude&longitude&locality&radius&page',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
@@ -386,7 +386,7 @@ angular.module('app', [
 		}
 	})
 	.state('tags', {
-		url:'/tags',
+		url:'/tags?query&page',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
