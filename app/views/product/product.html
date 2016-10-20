@@ -9,7 +9,7 @@
 				<button type="button" class="btn btn-success" ng-if="!product.active" ng-click="enableProduct()">Activate</button>
 			</div>
 
-			<div ng-if="user && (user.id != product.owner.id)">
+			<div ng-if="(user.id && (user.id != product.owner.id)) || !user.id">
 				<div class="form-group start-date">
 					<input type="text" id="startDateInput" class="form-control" uib-datepicker-popup="fullDate" ng-model="rentalForm.startDate" ng-focus="startDatePickerOpened()" ng-change="startDateChanged()" is-open="startDatePicker.opened" on-open-focus="false" datepicker-options="startDateOptions" ng-required="true" placeholder="Borrow date" show-button-bar="false">
 				</div>
@@ -25,6 +25,7 @@
 
 				<br /><br />
 				<button type="button" class="btn btn-primary" ng-click="requestToBorrowButtonClicked()">Request to Borrow</button>
+				<a class="btn btn-default" href="mailto:report@borrowbear.com">Report Product</a>
 			</div>
 		</div>
 		<div class="col-xs-12 col-md-9 content-column">

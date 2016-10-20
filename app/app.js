@@ -10,7 +10,6 @@ angular.module('app', [
 	'app.convenience',
 	'app.countries', 
 	'app.directives',
-	'app.disaster_response',
 	'app.errors', 
 	'app.filters', 
 	'app.footer', 
@@ -38,6 +37,7 @@ angular.module('app', [
 	'app.tags', 
 	'app.terms_and_privacy',
 	'app.verifyIdentity', 
+	'app.why_borrow',
 	'app.why_rent',
 	'internationalPhoneNumber',
 	'ngCookies', 
@@ -535,23 +535,6 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('disaster_response', {
-		url:'/disaster_response',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/disaster_response/disaster_response.html',
-				controller: 'DisasterResponseController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
 	.state('terms_and_privacy', {
 		url:'/terms_and_privacy',
 		views: {
@@ -629,6 +612,23 @@ angular.module('app', [
 			},
 			'content': {
 				templateUrl: 'views/_static/why_rent/why_rent.html',
+				controller: 'WhyRentController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('why_borrow', {
+		url:'/why_borrow',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/why_borrow/why_borrow.html',
 				controller: 'WhyRentController'
 			},
 			'footer': {
