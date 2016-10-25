@@ -7,10 +7,10 @@ angular.module('app.home', [])
 
 	$scope.productsQuery = {
 		query: "",
-		locality: "San Francisco, CA, United States",
-		latitude: 37.773972,
-		longitude: -122.431297,
-		radius: 20,
+		locality: "Palo Alto, CA, United States",
+		latitude: 37.4281704,
+		longitude: -122.1614915,
+		radius: 50,
 		active: true,
 		results_per_page: 7,
 		page: 1
