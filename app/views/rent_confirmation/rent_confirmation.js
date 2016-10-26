@@ -92,11 +92,15 @@ angular.module('app.rentConfirmation', [])
 			} else {
 				Stripe.card.createToken($scope.secureInfo, function(status, response) {
 					if (status == 200) {
-						$scope.priceQuote.card_id = response.id;
+						var card_token = response.id;
+						var card_id = response.card.id;
 						Users.update({ 
 							id: $rootScope.user.id, 
 							action: 'add_credit_card'
-						}, { card_token: $scope.priceQuote.card_id }, function(response) {
+						}, { 
+							card_token: card_token
+						}, function(response) {
+							$scope.priceQuote.card_id = card_id;
 							Rentals.create($scope.priceQuote, function(response) {
 								$state.go('rental', { rentalId: response.id });
 							}, function(response) {
