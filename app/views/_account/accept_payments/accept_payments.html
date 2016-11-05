@@ -126,7 +126,7 @@
 			</div>
 
 			<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 text description">{{ StateEnum.properties[currentState].description }}</div>
-
+			<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 text description">BorrowBear processes all payments and transfers securely using Stripe. By providing and submitting your account information, you agree to Stripe's <a href="https://stripe.com/us/connect-account/legal" target="_blank">Terms of Service</a>.</div>
 			<button type="button" ng-click="buttonPressed(currentState + 1)" class="btn btn-primary col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" ng-disabled="formDisabled || !stateCompleted(currentState)">{{ StateEnum.properties[currentState].button_text }}</button>
 		</form>
 	</fieldset>
