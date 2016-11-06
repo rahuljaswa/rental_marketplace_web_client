@@ -5,6 +5,7 @@ angular.module('app', [
 	'app.acceptPayments', 
 	'app.addPaymentMethod', 
 	'app.best_practices',
+	'app.cancellation_policy',
 	'app.careers',
 	'app.cityscape',
 	'app.convenience',
@@ -20,12 +21,13 @@ angular.module('app', [
 	'app.list', 
 	'app.login', 
 	'app.navigation', 
-	'app.policies',
+	'app.lender_policy',
 	'app.product', 
 	'app.profile', 
 	'app.register', 
 	'app.rental', 
 	'app.rentConfirmation', 
+	'app.renter_policy',
 	'app.requestPasswordReset', 
 	'app.resetPassword', 
 	'app.resources', 
@@ -37,8 +39,8 @@ angular.module('app', [
 	'app.tags', 
 	'app.terms_and_privacy',
 	'app.verifyIdentity', 
-	'app.why_borrow',
 	'app.why_rent',
+	'app.why_lend',
 	'internationalPhoneNumber',
 	'ngCookies', 
 	'ngFileUpload', 
@@ -518,16 +520,50 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('policies', {
-		url:'/policies',
+	.state('cancellation_policy', {
+		url:'/cancellation_policy',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/_static/policies/policies.html',
-				controller: 'PoliciesController'
+				templateUrl: 'views/_static/_policies/cancellation_policy/cancellation_policy.html',
+				controller: 'CancellationPolicyController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('lender_policy', {
+		url:'/lender_policy',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/_policies/lender_policy/lender_policy.html',
+				controller: 'LenderPolicyController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('renter_policy', {
+		url:'/renter_policy',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/_policies/renter_policy/renter_policy.html',
+				controller: 'RenterPolicyController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
@@ -620,16 +656,16 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('why_borrow', {
-		url:'/why_borrow',
+	.state('why_lend', {
+		url:'/why_lend',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/_static/why_borrow/why_borrow.html',
-				controller: 'WhyRentController'
+				templateUrl: 'views/_static/why_lend/why_lend.html',
+				controller: 'WhyLendController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
