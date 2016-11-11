@@ -55,6 +55,7 @@ angular.module('app', [
 	$urlRouterProvider.otherwise('/');
 
 	$authProvider.configure({
+		// apiUrl: 'http://localhost:3000/api/v1'
 		apiUrl: 'https://rental-marketplace-api.herokuapp.com/api/v1'
 	});
 

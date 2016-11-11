@@ -6,8 +6,9 @@ angular.module('app.profile', [])
 	$scope.StateEnum = {
 		PROFILE: 0,
 		LISTINGS: 1, 
-		RENTALS: 2,
-		PAYMENTS: 3
+		LENDINGS: 2,
+		RENTALS: 3,
+		PAYMENTS: 4
 	}
 
 	$scope.selectedIndex = $scope.StateEnum.PROFILE;

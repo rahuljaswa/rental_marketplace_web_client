@@ -11,6 +11,11 @@
 					Listings
 				</a>
 			</li>
+			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.LENDINGS)}" ng-if="fetchedUser.lendings.length > 0">
+				<a ng-click="tabClicked(StateEnum.LENDINGS)" aria-controls="profile" role="tab" data-toggle="tab">
+					Lendings
+				</a>
+			</li>
 			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.RENTALS)}" ng-if="fetchedUser.rentals.length > 0">
 				<a ng-click="tabClicked(StateEnum.RENTALS)" aria-controls="profile" role="tab" data-toggle="tab">
 					Rentals
@@ -58,6 +63,31 @@
 							</td>
 							<td>{{ product.price | currency : nil : 0 }}</td>
 							<td>{{ product.security_deposit | currency : nil : 0 }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div role="tabpanel" class="tab-pane" ng-class="{active : (selectedIndex == StateEnum.LENDINGS)}" id="lendings">
+				<table class="col-lg-12 table table-bordered table-responsive">
+					<thead>
+						<tr>
+							<th>Rental</th>
+							<th>Status</th>
+							<th>Pickup Date</th>
+							<th>Dropoff Date</th>
+							<th>Price</th>
+							<th>Security Deposit</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="rental in fetchedUser.lendings">
+							<td><a ng-href="rental/{{ rental.id }}">{{ rental.product.title }}</a></td>
+							<td><span style="text-transform: capitalize;">{{ rental.status }}</span></td>
+							<td>{{ rental.starts_at | date:'EEE, MMM d' }}</td>
+							<td>{{ rental.ends_at | date:'EEE, MMM d' }}</td>
+							<td>{{ rental.quoted_total | currency : nil : 0 }}</td>
+							<td>{{ rental.quoted_security_deposit | currency : nil : 0 }}</td>
 						</tr>
 					</tbody>
 				</table>

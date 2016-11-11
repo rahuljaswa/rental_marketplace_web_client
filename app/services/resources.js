@@ -1,6 +1,7 @@
 angular.module('app.resources', ['ngResource'])
 
 .factory('BaseUrl', function() {
+	// return 'http://localhost:3000';
 	return 'https://rental-marketplace-api.herokuapp.com';
 })
 
