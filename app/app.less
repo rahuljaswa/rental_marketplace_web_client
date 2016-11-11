@@ -73,8 +73,6 @@
  *
  */
  html.ng-scope body {
- 	@header-height: 50px;
- 	@footer-height: 50px;
  	div.header {
  		nav.navbar-default.navbar-fixed-top.clear-nav {
  			background-color: transparent;
@@ -130,45 +128,35 @@
  		}
  	}
  	div.content {
- 		padding-bottom: 380px;
+ 		padding-bottom: 553px;
  	}
  	div.footer {
+ 		max-height: 553px;
  		background-color: #f5f5f5;
  		text-align: center;
  		padding-top: 20px;
  		width: 100%;
- 		position:absolute;
+ 		position: absolute;
  		bottom: 0;
  		left: 0;
- 		div.section {
- 			display: inline-block;
- 			vertical-align: top;
- 			margin-bottom: 30px;
- 			h5 {
- 				text-align: left;
+ 		div.container {
+ 			max-width: 600px;
+ 			div.section {
+ 				h5 {
+ 					text-align: left;
+ 				}
+ 				ul, ul li {
+ 					text-align: left;
+ 					margin: 0;
+ 					padding: 0;
+ 					list-style-type: none;
+ 				}
  			}
- 			ul, ul li {
- 				text-align: left;
- 				margin: 0;
- 				padding: 0;
- 				list-style-type: none;
- 			}
  		}
- 		div.section.company {
- 			width: 190px;
- 		}
- 		div.section.discover {
- 			width: 100px;
- 		}
- 		div.section.lending {
- 			width: 120px;
- 		}
- 		div.section:last-child {
- 			margin-bottom: 20px;
- 		}
- 		div.copyright {
- 			margin-bottom: 20px;
- 		}
+ 	}
+ 	div.copyright {
+ 		padding: 20px;
+ 		display: block;
  	}
  }
 
