@@ -24,13 +24,13 @@
 	</nav>
 
 	<div class="products container">
-		<div ng-class="shouldDoubleLengthWithOffsetIndex(0, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12" ng-repeat="product in products.data">
-			<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}">
-				<a ng-href="product/{{ product.id }}">
+		<div ng-class="shouldDoubleLengthWithOffsetIndex(0, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="product in products.data">
+			<a ng-href="product/{{ product.id }}">
+				<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}">
 					<div class="item-title"><div class="text-center"><h2>{{ product.title }}</h2></div></div>
 					<div class="item-price">{{ product.price | currency : nil : 0 }}</div>
-				</a>
-			</div>
+				</div>
+			</a>
 		</div>
 	</div>
 
