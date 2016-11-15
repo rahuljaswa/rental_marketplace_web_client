@@ -13,6 +13,14 @@
  	margin: 0;
  	padding: 0;
  	height: 100%;
+ 	.btn-primary, .btn:disabled, .btn.disabled {
+ 		background-color: #14b694;
+ 		border-color: #14b694;
+ 	}
+ 	.btn:focus, .btn.focus {
+ 		background-color: #068568;
+ 		border-color: #068568;
+ 	}
  	div.wrapper {
  		min-height:100%;
  		position:relative;
@@ -104,6 +112,18 @@
  				box-shadow: none;
  			}
  		}
+ 		nav {
+ 			button.navbar-toggle {
+ 				margin-top: 18px;
+ 				margin-bottom: 18px;
+ 			}
+ 			a {
+ 				font-weight: bold;
+ 				font-size: 16px;
+ 				padding-top: 25px;
+ 				padding-bottom: 25px;
+ 			}
+ 		}
  		nav.navbar-fixed-top {
  			position: absolute;
  		}
@@ -113,10 +133,10 @@
  				cursor: pointer;
  			}
  			a.navbar-brand {
- 				padding-left: 10px;
- 				padding-top: 5px;
+ 				padding-left: 8px;
+ 				padding-top: 10px;
  				img {
- 					height: 35px;
+ 					height: 50px;
  				}
  				img.clear {
  					display: none;
@@ -179,8 +199,8 @@
  			height: 40px;
  		}
  		button.btn-primary {
- 			border: 1px solid #ff5a5f;
- 			background-color: #ff5a5f;
+ 			border: 1px solid #14b694;
+ 			background-color: #14b694;
  			font-weight: bold;
  			color: #fff;
  		}
