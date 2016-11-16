@@ -175,7 +175,7 @@ angular.module('app.list', ['uuid'])
 
 .directive('googlePlacesEstablishments', function() {
 	return function($scope, element) {
-		var autocomplete = new google.maps.places.Autocomplete(element[0], { types: ['establishment'] });
+		var autocomplete = new google.maps.places.Autocomplete(element[0]);
 		autocomplete.addListener('place_changed', function() {
 			var place = autocomplete.getPlace();
 			var latitude = place.geometry.location.lat();
@@ -210,8 +210,7 @@ angular.module('app.list', ['uuid'])
 			$scope.product.pickup_location.latitude = latitude;
 			$scope.product.pickup_location.longitude = longitude;
 			$scope.product.pickup_location.formatted_address = place.formatted_address;
-			$scope.product.pickup_location.google_place_id = place.place_id;
-			$scope.product.pickup_location.establishment_name = place.name;
+			$scope.product.pickup_location.google_place_id = place.place_id;			
 			$scope.product.pickup_location.google_maps_url = place.url;
 			$scope.product.pickup_location.street_number = streetNumber;
 			$scope.product.pickup_location.country = country;
@@ -219,6 +218,12 @@ angular.module('app.list', ['uuid'])
 			$scope.product.pickup_location.postal_code = postalCode;
 			$scope.product.pickup_location.street_name = streetName;
 			$scope.product.pickup_location.city = city;
+
+			if ($scope.product.pickup_location.formatted_address.includes(place.name)) {
+				$scope.product.pickup_location.establishment_name = null;
+			} else {
+				$scope.product.pickup_location.establishment_name = place.name;
+			}
 		});
 	};
 });
