@@ -3,6 +3,7 @@ angular.module('app.search', [])
 .controller('SearchController', ['$scope', '$http', '$stateParams', 'Products', function($scope, $http, $stateParams, Products) {
 	$scope.query = $stateParams;
 	$scope.query.results_per_page = 20;
+	delete $scope.query.featured;
 
 	$scope.$watch('query.query', function() {
 		if (!$scope.query.query || !$scope.query.query.length) {

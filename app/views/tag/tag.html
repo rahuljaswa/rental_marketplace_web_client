@@ -1,6 +1,8 @@
 <div class="tag-page" ng-if="tag.id">
 	<div class="container">
 		<h2 class="row header-row title">{{ tag.name }}</h2>
+		<button class="btn btn-success" ng-if="user.admin && !tag.featured" ng-click="toggleFeaturedStatus()">Feature Tag</button>
+		<button class="btn btn-danger" ng-if="user.admin && tag.featured" ng-click="toggleFeaturedStatus()">Unfeature Tag</button>
 		<p class="row header-row subtitle">Check out the top results for {{ tag.name }}</p>
 
 		<div class="products container">

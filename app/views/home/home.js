@@ -12,6 +12,7 @@ angular.module('app.home', [])
 		longitude: -122.1614915,
 		radius: 50,
 		active: true,
+		featured: true,
 		results_per_page: 7,
 		page: 1
 	};
@@ -20,7 +21,8 @@ angular.module('app.home', [])
 
 	$scope.tags = Tags.query({
 		query: "",
-		results_per_page: 7
+		results_per_page: 7,
+		featured: true
 	});
 
 	$scope.viewAllProductsButtonPressed = function() {

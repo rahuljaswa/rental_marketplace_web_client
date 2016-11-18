@@ -5,6 +5,7 @@ angular.module('app.tags', [])
 
 	$scope.tags = [];
 	$scope.query = $stateParams;
+	delete $scope.query.featured;
 	if (!$scope.query.query) {
 		$scope.query.query = "";
 	}

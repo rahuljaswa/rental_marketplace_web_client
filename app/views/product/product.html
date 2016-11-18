@@ -7,6 +7,8 @@
 				<button type="button" class="btn btn-primary" ui-sref="list({ productId: product.id })" href>Edit</button>
 				<button type="button" class="btn btn-danger" ng-if="product.active" ng-click="disableProduct()">Deactivate</button>
 				<button type="button" class="btn btn-success" ng-if="!product.active" ng-click="enableProduct()">Activate</button>
+				<button class="btn btn-success" ng-if="user.admin && !product.featured" ng-click="toggleFeaturedStatus()">Feature Product</button>
+				<button class="btn btn-danger" ng-if="user.admin && product.featured" ng-click="toggleFeaturedStatus()">Unfeature Product</button>
 			</div>
 
 			<div ng-if="(user.id && (user.id != product.owner.id)) || !user.id">
@@ -26,6 +28,9 @@
 				<br /><br />
 				<button type="button" class="btn btn-primary" ng-click="requestToBorrowButtonClicked()">Request to Borrow</button>
 				<a class="btn btn-default" href="mailto:report@borrowbear.com">Report Product</a>
+
+				<button class="btn btn-success" ng-if="user.admin && !product.featured" ng-click="toggleFeaturedStatus()">Feature Product</button>
+				<button class="btn btn-danger" ng-if="user.admin && product.featured" ng-click="toggleFeaturedStatus()">Unfeature Product</button>
 			</div>
 		</div>
 		<div class="col-xs-12 col-md-9 content-column">

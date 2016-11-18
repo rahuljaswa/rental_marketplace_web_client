@@ -72,6 +72,13 @@ angular.module('app.product', [])
 		return $scope.rentalForm.startDate > $scope.rentalForm.endDate;
 	}
 
+	$scope.toggleFeaturedStatus = function() {
+		$scope.product.featured = !$scope.product.featured;
+		Products.update({ id: $scope.product.id }, $scope.product, function(response) {
+			$scope.product = response;
+		});
+	}
+
 	$scope.requestToBorrowButtonClicked = function() {
 		if ($scope.rentalForm.startDate && $scope.rentalForm.endDate && !$scope.updateEndDateInvalid()) {
 			$state.go('rentConfirmation', {
