@@ -4,13 +4,13 @@
 			<div class="image" ng-style="{'background-image': 'url({{ featured_product.image_url }})'}"></div>
 			<div class="carousel-caption"><h2>{{ featured_product.image_caption }}</h2></div>
 		</div>
-
-		<form class="navbar-form search">
-			<div class="search-inputs-container products">
-				<input type="text" ng-model="productsQuery.query" class="form-control query" placeholder="Search" autofocus><input type="text" ng-model="productsQuery.locality" class="form-control location" placeholder="location" google-places-cities-home><button type="button" ng-click="searchButtonPressed()" class="btn btn-primary">Search</button>
-			</div>
-		</form>
 	</div>
+
+	<form class="navbar-form search">
+		<div class="search-inputs-container products">
+			<input type="text" ng-model="productsQuery.query" class="form-control query" placeholder="Search" autofocus><input type="text" ng-model="productsQuery.locality" class="form-control location" placeholder="location" google-places-cities-home><button type="button" ng-click="searchButtonPressed()" class="btn btn-primary">Search</button>
+		</div>
+	</form>
 
 	<div class="container">
 		<h2 class="row header-row title">Popular products</h2>
@@ -19,10 +19,9 @@
 		<div class="products container">
 			<div ng-class="shouldDoubleLengthWithOffsetIndex(0, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="product in products.data">
 				<a ng-href="/product/{{ product.id }}">
-					<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}">
-						<div class="item-title"><div class="text-center"><h2>{{ product.title }}</h2></div></div>
-						<div class="item-price">{{ product.price | currency : nil : 0 }}</div>
-					</div>
+					<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}"></div>
+					<span class="item-title-bold">{{ product.price | currency : nil : 0 }}</span>
+					<span class="item-title">{{ product.title }}</span>
 				</a>
 			</div>
 		</div>
@@ -35,9 +34,8 @@
 		<div class="tags container">
 			<div ng-class="shouldDoubleLengthWithOffsetIndex(1, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="tag in tags.data">
 				<a ng-href="/tag/{{ tag.id }}">
-					<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ tag.image_url }})'}">
-						<div class="item-title"><div class="text-center"><h2>{{ tag.name }}</h2></div></div>
-					</div>
+					<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ tag.image_url }})'}"></div>
+					<span class="item-title-bold">{{ tag.name }}</span>
 				</a>
 			</div>
 		</div>

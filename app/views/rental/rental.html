@@ -17,7 +17,7 @@
 			<p class="row">{{ rental.product.description }}</p>
 			<div class="row item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in rental.product.image_urls track by $index"></div>
 		</div>
-		<div class="col-xs-12 col-md-6 content-column container">
+		<div class="col-xs-12 col-md-6 content-column">
 			<fieldset ng-disabled="rental.status == 'cancelled'">
 				<form class="form-horizontal list">
 					<div class="col-xs-12">

@@ -37,7 +37,7 @@
 			<p class="row">{{ product.description }}</p>
 			<p class="row">Tags: <span ng-repeat="tag in product.tags"><a ng-href="/tag/{{ tag.id }}">{{ tag.name }}</a><span ng-show="!$last">, </span></span></p>
 
-			<div class="images container">
+			<div class="images container item-gallery">
 				<div class="col-lg-4 col-sm-6 col-xs-12 item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in product.image_urls track by $index"></div>
 			</div>
 		</div>

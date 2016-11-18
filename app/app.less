@@ -12,7 +12,7 @@
  	min-width: 320px;
  	margin: 0;
  	padding: 0;
- 	height: 100%;
+ 	min-height: 100%;
  	.btn-primary, .btn:disabled, .btn.disabled {
  		background-color: #14b694;
  		border-color: #14b694;
@@ -189,51 +189,54 @@
  *
  */
  html.ng-scope body {
- 	div.search-inputs-container {
- 		display: block;
- 		margin: 0 auto;
- 		max-width: 1200px;
- 		input.form-control, button {
- 			display: inline-block;
- 			margin: 20px 0;
- 			height: 40px;
+ 	form.search {
+ 		div.search-inputs-container {
+ 			display: block;
+ 			margin: 0 auto;
+ 			max-width: 1200px;
+ 			input.form-control, button {
+ 				display: inline-block;
+ 				margin: 20px 0;
+ 				height: 50px;
+ 				font-size: 16px;
+ 			}
+ 			button.btn-primary {
+ 				border: 1px solid #14b694;
+ 				background-color: #14b694;
+ 				font-weight: bold;
+ 				color: #fff;
+ 			}
  		}
- 		button.btn-primary {
- 			border: 1px solid #14b694;
- 			background-color: #14b694;
- 			font-weight: bold;
- 			color: #fff;
+ 		div.search-inputs-container.products {
+ 			@side-margin: 20%;
+ 			@location-input-width: 35%;
+ 			@query-input-width: 40%;
+ 			@button-width: 25%;
+ 			input.location {
+ 				width: @location-input-width - (@side-margin / 3);
+ 				border-left: none;
+ 			}
+ 			input.query {
+ 				width: @query-input-width - (@side-margin / 3);
+ 				margin-left: @side-margin/2;
+ 			}
+ 			button.btn-primary {
+ 				width: @button-width - (@side-margin / 3);
+ 				margin-right: @side-margin/2;
+ 			}
  		}
- 	}
- 	div.search-inputs-container.products {
- 		@side-margin: 20%;
- 		@location-input-width: 35%;
- 		@query-input-width: 40%;
- 		@button-width: 25%;
- 		input.location {
- 			width: @location-input-width - (@side-margin / 3);
- 			border-left: none;
- 		}
- 		input.query {
- 			width: @query-input-width - (@side-margin / 3);
- 			margin-left: @side-margin/2;
- 		}
- 		button.btn-primary {
- 			width: @button-width - (@side-margin / 3);
- 			margin-right: @side-margin/2;
- 		}
- 	}
- 	div.search-inputs-container.tags {
- 		@side-margin: 30%;
- 		@query-input-width: 70%;
- 		@button-width: 30%;
- 		input.query {
- 			width: @query-input-width - (@side-margin / 2);
- 			margin-left: @side-margin/2;
- 		}
- 		button.btn-primary {
- 			width: @button-width - (@side-margin / 2);
- 			margin-right: @side-margin/2;
+ 		div.search-inputs-container.tags {
+ 			@side-margin: 30%;
+ 			@query-input-width: 70%;
+ 			@button-width: 30%;
+ 			input.query {
+ 				width: @query-input-width - (@side-margin / 2);
+ 				margin-left: @side-margin/2;
+ 			}
+ 			button.btn-primary {
+ 				width: @button-width - (@side-margin / 2);
+ 				margin-right: @side-margin/2;
+ 			}
  		}
  	}
  }
@@ -250,6 +253,21 @@
  	div.container {
  		position: relative;
  		z-index: 20;
+ 		@media (min-width: 768px) {
+ 			.container {
+ 				width: 760px;
+ 			}
+ 		}
+ 		@media (min-width: 992px) {
+ 			.container {
+ 				width: 850px;
+ 			}
+ 		}
+ 		@media (min-width: 1200px) {
+ 			.container {
+ 				width: 1050px;
+ 			}
+ 		}
  		.header-row, .footer-row {
  			text-align: center;
  		}
@@ -319,37 +337,25 @@
  			padding: 8px;
  		}
  		div.item-gallery {
+ 			margin-bottom: 10px;
  			a, a:hover, a:visited {
  				color: white;
  				text-decoration: none;
  			}
- 		}
- 		div.item {
- 			height: 200px;
- 			background-size: cover;
- 			background-repeat: no-repeat;
- 			background-position: center center;
- 			div.item-title {
- 				margin: 70px auto;
- 				display: table;
- 				padding: 10px;
- 				background-color: rgba(0,0,0,.7);
- 				div.text-center {
- 					vertical-align: middle;
- 					display: table-cell;
- 				}
- 				h2 {
- 					margin-top: 0px;
- 					margin-bottom: 0px;
- 				}				
+ 			div.item {
+ 				height: 200px;
+ 				background-color: #E9E9E9;
+ 				background-size: cover;
+ 				background-repeat: no-repeat;
+ 				background-position: center center;
+ 				margin-bottom: 8px;
  			}
- 			div.item-price {
- 				position: absolute;
- 				top: 5px;
- 				right: 0;
- 				padding: 7px 10px;
- 				font-size: 18px;
- 				background-color: rgba(0,0,0,.7);
+ 			span.item-title {
+ 				color: #333333;
+ 			}
+ 			span.item-title-bold {
+ 				font-weight: bold;
+ 				color: #222222;
  			}
  		}
  	}
@@ -371,7 +377,7 @@
  			z-index: 10;
  			div.carousel-caption {
  				display: block;
- 				margin: 170px auto;
+ 				margin: 220px auto;
  				h2 {
  					text-align: center;
  					position: relative;
@@ -401,15 +407,9 @@
  					background-size: cover;
  				}
  			}
- 			form {
- 				z-index: 30;
- 				position: absolute;
- 				left: 0;
- 				right: 0;
- 				bottom: 0;
- 				margin-bottom: 0;
- 				background-color: rgba(0,0,0,.5);
- 			}
+ 		}
+ 		form.search {
+ 			margin-top: 40px;
  		}
  		.row button, .row a {
  			border: 1px solid #c4c4c4;
