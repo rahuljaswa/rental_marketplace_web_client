@@ -30,6 +30,7 @@ angular.module('app.search', [])
 	}
 
 	$scope.queryInputChanged = function() {
+		$scope.query.page = 1;
 		$scope.fetchSearchResults();
 	}
 
