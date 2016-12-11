@@ -15,7 +15,7 @@
 		</div>
 	</div>
 
-	<nav aria-label="Page navigation" class="pagination">
+	<nav aria-label="Page navigation" class="pagination" ng-if="products.data.length > 0">
 		<ul class="pagination">
 			<li ng-class="{ disabled: query.page == 1 }" ng-disabled="query.page == 1">
 				<a ng-href="/search?page={{ pageOffsetBy(-1) }}&query={{ query.query }}&latitude={{ query.latitude }}&longitude={{ query.longitude }}&locality={{ query.locality }}&radius={{ query.radius }}" ng-click="previousPageButtonPressed()" aria-label="Previous">
