@@ -338,7 +338,7 @@ angular.module('app', [
 		}
 	})
 	.state('search', {
-		url:'/search?query&latitude&longitude&locality&radius&page',
+		url:'/search?query&latitude&longitude&locality&radius&page&active&featured',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
