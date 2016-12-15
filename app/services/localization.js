@@ -1,4 +1,4 @@
-angular.module('app.countries', [])
+angular.module('app.localization', [])
 
 .factory('SupportedCountries', function(SupportedCurrencies) {
 	return {

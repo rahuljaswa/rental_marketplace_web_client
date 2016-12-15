@@ -7,21 +7,22 @@ angular.module('app', [
 	'app.best_practices',
 	'app.cancellation_policy',
 	'app.careers',
-	'app.cityscape',
 	'app.convenience',
-	'app.countries', 
+	'app.countries',
+	'app.country',
 	'app.directives',
 	'app.errors', 
 	'app.filters', 
 	'app.footer', 
 	'app.help',
 	'app.home', 
-	'app.inspiration',
 	'app.keys', 
 	'app.list', 
 	'app.login', 
 	'app.navigation', 
 	'app.lender_policy',
+	'app.localization',
+	'app.pagination',
 	'app.product', 
 	'app.profile', 
 	'app.register', 
@@ -33,7 +34,6 @@ angular.module('app', [
 	'app.resources', 
 	'app.safety',
 	'app.search', 
-	'app.staff_picks',
 	'app.staticContent', 
 	'app.tag', 
 	'app.tags', 
@@ -131,69 +131,21 @@ angular.module('app', [
 	}
 
 	$stateProvider
-	.state('home', {
-		url:'/',
+	.state('about', {
+		url:'/about',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/home/home.html',
-				controller: 'HomeController'
+				templateUrl: 'views/_static/about/about.html',
+				controller: 'AboutController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
 				controller: 'FooterController'
 			}
-		}
-	})
-	.state('register', {
-		url: '/account/register?redirectPath&{redirectParams:json}',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'errors': {
-				templateUrl: '/views/errors/errors.html',
-				controller: 'ErrorsController'
-			},
-			'content': {
-				templateUrl: 'views/_account/register/register.html',
-				controller: 'RegisterController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		},
-		resolve: {
-			authenticate: inauthenticate 
-		}
-	})
-	.state('login', {
-		url: '/account/login?redirectPath&{redirectParams:json}',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'errors': {
-				templateUrl: '/views/errors/errors.html',
-				controller: 'ErrorsController'
-			},
-			'content': {
-				templateUrl: 'views/_account/login/login.html',
-				controller: 'LoginController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		},
-		resolve: {
-			authenticate: inauthenticate 
 		}
 	})
 	.state('acceptPayments', {
@@ -244,68 +196,135 @@ angular.module('app', [
 			authenticate: authenticateOnly
 		}
 	})
-	.state('verifyIdentity', {
-		url: '/account/verify_identity?redirectPath&{redirectParams:json}',
+	.state('best_practices', {
+		url:'/best_practices',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
-			'errors': {
-				templateUrl: '/views/errors/errors.html',
-				controller: 'ErrorsController'
-			},
 			'content': {
-				templateUrl: 'views/_account/verify_identity/verify_identity.html',
-				controller: 'VerifyIdentityController'
+				templateUrl: 'views/_static/best_practices/best_practices.html',
+				controller: 'BestPracticesController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
 				controller: 'FooterController'
 			}
-		},
-		resolve: {
-			authenticate: authenticateOnly
 		}
 	})
-	.state('resetPassword', {
-		url: '/account/reset_password',
+	.state('cancellation_policy', {
+		url:'/cancellation_policy',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
-			'errors': {
-				templateUrl: '/views/errors/errors.html',
-				controller: 'ErrorsController'
-			},
 			'content': {
-				templateUrl: 'views/_account/reset_password/reset_password.html',
-				controller: 'ResetPasswordController'
+				templateUrl: 'views/_static/_policies/cancellation_policy/cancellation_policy.html',
+				controller: 'CancellationPolicyController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
 				controller: 'FooterController'
 			}
-		},
-		resolve: {
-			authenticate: authenticateOnly
 		}
 	})
-	.state('requestPasswordReset', {
-		url: '/account/request_password_reset?redirectPath&{redirectParams:json}',
+	.state('careers', {
+		url:'/careers',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
-			'errors': {
-				templateUrl: '/views/errors/errors.html',
-				controller: 'ErrorsController'
+			'content': {
+				templateUrl: 'views/_static/careers/careers.html',
+				controller: 'CareersController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('countries', {
+		url:'/countries',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/_account/request_password_reset/request_password_reset.html',
-				controller: 'RequestPasswordResetController'
+				templateUrl: 'views/_static/countries/countries.html',
+				controller: 'CountriesController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('country', {
+		url:'/country/:countryId?page',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/country/country.html',
+				controller: 'CountryController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('help', {
+		url:'/help',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/help/help.html',
+				controller: 'HelpController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('home', {
+		url:'/',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/home/home.html',
+				controller: 'HomeController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('lender_policy', {
+		url:'/lender_policy',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/_policies/lender_policy/lender_policy.html',
+				controller: 'LenderPolicyController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
@@ -337,21 +356,28 @@ angular.module('app', [
 			authenticate: authenticateAndVerify
 		}
 	})
-	.state('search', {
-		url:'/search?query&latitude&longitude&locality&radius&page&active&featured',
+	.state('login', {
+		url: '/account/login?redirectPath&{redirectParams:json}',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
+			'errors': {
+				templateUrl: '/views/errors/errors.html',
+				controller: 'ErrorsController'
+			},
 			'content': {
-				templateUrl: 'views/search/search.html',
-				controller: 'SearchController'
+				templateUrl: 'views/_account/login/login.html',
+				controller: 'LoginController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
 				controller: 'FooterController'
 			}
+		},
+		resolve: {
+			authenticate: inauthenticate 
 		}
 	})
 	.state('product', {
@@ -388,38 +414,28 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('tags', {
-		url:'/tags?query&page',
+	.state('register', {
+		url: '/account/register?redirectPath&{redirectParams:json}',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
+			'errors': {
+				templateUrl: '/views/errors/errors.html',
+				controller: 'ErrorsController'
+			},
 			'content': {
-				templateUrl: 'views/tags/tags.html',
-				controller: 'TagsController'
+				templateUrl: 'views/_account/register/register.html',
+				controller: 'RegisterController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
 				controller: 'FooterController'
 			}
-		}
-	})
-	.state('tag', {
-		url:'/tag/:tagId',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/tag/tag.html',
-				controller: 'TagController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
+		},
+		resolve: {
+			authenticate: inauthenticate 
 		}
 	})
 	.state('rental', {
@@ -470,91 +486,6 @@ angular.module('app', [
 			authenticate: authenticateAndVerify
 		}
 	})
-	.state('about', {
-		url:'/about',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/about/about.html',
-				controller: 'AboutController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('careers', {
-		url:'/careers',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/careers/careers.html',
-				controller: 'CareersController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('help', {
-		url:'/help',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/help/help.html',
-				controller: 'HelpController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('cancellation_policy', {
-		url:'/cancellation_policy',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/_policies/cancellation_policy/cancellation_policy.html',
-				controller: 'CancellationPolicyController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('lender_policy', {
-		url:'/lender_policy',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/_policies/lender_policy/lender_policy.html',
-				controller: 'LenderPolicyController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
 	.state('renter_policy', {
 		url:'/renter_policy',
 		views: {
@@ -565,6 +496,119 @@ angular.module('app', [
 			'content': {
 				templateUrl: 'views/_static/_policies/renter_policy/renter_policy.html',
 				controller: 'RenterPolicyController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('requestPasswordReset', {
+		url: '/account/request_password_reset?redirectPath&{redirectParams:json}',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'errors': {
+				templateUrl: '/views/errors/errors.html',
+				controller: 'ErrorsController'
+			},
+			'content': {
+				templateUrl: 'views/_account/request_password_reset/request_password_reset.html',
+				controller: 'RequestPasswordResetController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('resetPassword', {
+		url: '/account/reset_password',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'errors': {
+				templateUrl: '/views/errors/errors.html',
+				controller: 'ErrorsController'
+			},
+			'content': {
+				templateUrl: 'views/_account/reset_password/reset_password.html',
+				controller: 'ResetPasswordController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		},
+		resolve: {
+			authenticate: authenticateOnly
+		}
+	})
+	.state('safety', {
+		url:'/safety',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/safety/safety.html',
+				controller: 'SafetyController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('search', {
+		url:'/search?query&latitude&longitude&locality&radius&page&active&featured',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/search/search.html',
+				controller: 'SearchController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('tag', {
+		url:'/tag/:tagId?cityId',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/tag/tag.html',
+				controller: 'TagController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('tags', {
+		url:'/tags?query&page&cityId',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/tags/tags.html',
+				controller: 'TagsController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
@@ -589,72 +633,28 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('cityscape', {
-		url:'/cityscape',
+	.state('verifyIdentity', {
+		url: '/account/verify_identity?redirectPath&{redirectParams:json}',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
+			'errors': {
+				templateUrl: '/views/errors/errors.html',
+				controller: 'ErrorsController'
+			},
 			'content': {
-				templateUrl: 'views/_static/cityscape/cityscape.html',
-				controller: 'CityscapeController'
+				templateUrl: 'views/_account/verify_identity/verify_identity.html',
+				controller: 'VerifyIdentityController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
 				controller: 'FooterController'
 			}
-		}
-	})
-	.state('inspiration', {
-		url:'/inspiration',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/inspiration/inspiration.html',
-				controller: 'InspirationController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('staff_picks', {
-		url:'/staff_picks',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/staff_picks/staff_picks.html',
-				controller: 'StaffPicksController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('why_rent', {
-		url:'/why_rent',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/why_rent/why_rent.html',
-				controller: 'WhyRentController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
+		},
+		resolve: {
+			authenticate: authenticateOnly
 		}
 	})
 	.state('why_lend', {
@@ -674,33 +674,16 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('best_practices', {
-		url:'/best_practices',
+	.state('why_rent', {
+		url:'/why_rent',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/_static/best_practices/best_practices.html',
-				controller: 'BestPracticesController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('safety', {
-		url:'/safety',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/safety/safety.html',
-				controller: 'SafetyController'
+				templateUrl: 'views/_static/why_rent/why_rent.html',
+				controller: 'WhyRentController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',

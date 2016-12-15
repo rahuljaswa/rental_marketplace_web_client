@@ -1,6 +1,6 @@
 angular.module('app.search', [])
 
-.controller('SearchController', ['$scope', '$http', '$stateParams', 'Products', function($scope, $http, $stateParams, Products) {
+.controller('SearchController', ['$scope', '$http', '$stateParams', 'Products', 'Pagination', function($scope, $http, $stateParams, Products, Pagination) {
 	$scope.query = $stateParams;
 	$scope.query.results_per_page = 20;
 	delete $scope.query.featured;
@@ -40,27 +40,10 @@ angular.module('app.search', [])
 
 	$scope.fetchSearchResults = function() {
 		$scope.products = Products.query($scope.query, function(response) {
-			$scope.query.page = response.metadata.page;
-
-			var pages_to_display = [];
-			var max_pages_to_display = 10;
-			var pages_till_end = response.metadata.number_of_pages - response.metadata.page;
-			if (response.metadata.number_of_pages <= max_pages_to_display) {
-				for (var i = 1; i <= response.metadata.number_of_pages; i++) {
-					pages_to_display.push(i);
-				}
-			} else if (pages_till_end <= max_pages_to_display/2) {
-				for (var i = max_pages_to_display - pages_till_end; i <= response.metadata.number_of_pages; i++) {
-					pages_to_display.push(i);
-				}
-			} else {
-				var first_page = Math.max(1, response.metadata.page - max_pages_to_display/2);
-				for (var i = first_page; i <= first_page + max_pages_to_display; i++) {
-					pages_to_display.push(i);	
-				}
-			}
-			$scope.last_page = response.metadata.number_of_pages;
-			$scope.pages_to_display = pages_to_display;
+			pagination = Pagination.generateInfo(response);
+			$scope.query.page = pagination.page;
+			$scope.last_page = pagination.last_page;
+			$scope.pages_to_display = pagination.pages_to_display;
 		});
 	}
 

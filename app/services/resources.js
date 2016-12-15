@@ -31,4 +31,12 @@ angular.module('app.resources', ['ngResource'])
 
 .factory('Notifications', function($resource, ClientUrl) {
 	return $resource(ClientUrl + '/notifications/:id');
+})
+
+.factory('Countries', function($resource, ClientUrl) {
+	return $resource(ClientUrl + '/countries/:id');
+})
+
+.factory('Cities', function($resource, ClientUrl) {
+	return $resource(ClientUrl + '/cities/:id');
 });
