@@ -27,6 +27,7 @@ angular.module('app.tags', [])
 	});
 
 	$scope.queryInputChanged = function() {
+		$scope.query.page = 1;
 		$scope.fetchTags();
 	}
 
