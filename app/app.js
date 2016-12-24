@@ -12,6 +12,7 @@ angular.module('app', [
 	'app.country',
 	'app.directives',
 	'app.errors', 
+	'app.featured_cities',
 	'app.filters', 
 	'app.footer', 
 	'app.help',
@@ -274,6 +275,23 @@ angular.module('app', [
 			'content': {
 				templateUrl: 'views/_static/country/country.html',
 				controller: 'CountryController'
+			},
+			'footer': {
+				templateUrl: '/views/footer/footer.html',
+				controller: 'FooterController'
+			}
+		}
+	})
+	.state('featured_cities', {
+		url:'/featured_cities',
+		views: {
+			'header': {
+				templateUrl: '/views/navigation/navigation.html',
+				controller: 'NavigationController'
+			},
+			'content': {
+				templateUrl: 'views/_static/featured_cities/featured_cities.html',
+				controller: 'FeaturedCitiesController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
