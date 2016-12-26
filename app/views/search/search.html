@@ -9,8 +9,10 @@
 		<div ng-class="shouldDoubleLengthWithOffsetIndex(0, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="product in products.data">
 			<a ng-href="product/{{ product.id }}">
 				<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}"></div>
-				<span class="item-title-bold">{{ product.price | currency : nil : 0 }}</span>
-				<span class="item-title">{{ product.title }}</span>
+				<div class="item-text">
+					<span class="item-title-bold">{{ product.price | currency : nil : 0 }}</span>
+					<span class="item-title">{{ product.title }}</span>
+				</div>
 			</a>
 		</div>
 	</div>
