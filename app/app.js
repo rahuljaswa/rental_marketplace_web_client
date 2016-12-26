@@ -601,7 +601,7 @@ angular.module('app', [
 		}
 	})
 	.state('tag', {
-		url:'/tag/:tagId?cityId',
+		url:'/tag/:tagId?cityId&page',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',

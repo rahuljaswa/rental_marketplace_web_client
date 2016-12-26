@@ -1,7 +1,14 @@
 angular.module('app.tag', [])
 
-.controller('TagController', ['$scope', '$http', '$stateParams', 'Tags', 'Cities', function($scope, $http, $stateParams, Tags, Cities) {
+.controller('TagController', ['$scope', '$http', '$stateParams', 'Cities', 'Pagination', 'Products', 'Tags',  function($scope, $http, $stateParams, Cities, Pagination, Products, Tags) {
 	document.title = "BorrowBear - Products";
+
+	$scope.tagId = $stateParams.tagId;
+	$scope.query = {
+		tags: $scope.tagId.toString(),
+		active: true,
+		page: $stateParams.page
+	}
 
 	cityId = $stateParams.cityId;
 	if (cityId) {
@@ -10,14 +17,27 @@ angular.module('app.tag', [])
 		});
 	}
 
-	$scope.tag = Tags.get({ id: $stateParams.tagId }, function(response) {
+	$scope.tag = Tags.get({ id: $scope.tagId }, function(response) {
 		updateTitle();
 	});
 
+	$scope.pageOffsetBy = function(offset) {
+		return Math.min(Math.max(parseInt($scope.query.page) + parseInt(offset), 1), $scope.last_page).toString();
+	}
+
 	$scope.toggleFeaturedStatus = function() {
 		$scope.tag.featured = !$scope.tag.featured;
-		Tags.update({ id: $scope.tag.id }, $scope.tag, function(response) {
+		Tags.update({ id: $scope.tagId }, $scope.tag, function(response) {
 			$scope.tag = response;
+		});
+	}
+
+	$scope.fetchProducts = function() {
+		$scope.products = Products.query($scope.query, function(response) {
+			pagination = Pagination.generateInfo(response);
+			$scope.query.page = pagination.page;
+			$scope.last_page = pagination.last_page;
+			$scope.pages_to_display = pagination.pages_to_display;
 		});
 	}
 
@@ -29,4 +49,6 @@ angular.module('app.tag', [])
 			document.title = "BorrowBear - " + $scope.tag.name + " Products For Rent";
 		}
 	}
+
+	$scope.fetchProducts();
 }]);
