@@ -21,10 +21,6 @@ angular.module('app.tag', [])
 		updateTitle();
 	});
 
-	$scope.pageOffsetBy = function(offset) {
-		return Math.min(Math.max(parseInt($scope.query.page) + parseInt(offset), 1), $scope.last_page).toString();
-	}
-
 	$scope.toggleFeaturedStatus = function() {
 		$scope.tag.featured = !$scope.tag.featured;
 		Tags.update({ id: $scope.tagId }, $scope.tag, function(response) {
@@ -48,6 +44,12 @@ angular.module('app.tag', [])
 		} else if ($scope.tag) {
 			document.title = "BorrowBear - " + $scope.tag.name + " Products For Rent";
 		}
+	}
+
+	$scope.paginatedURLWithOffset = function(destination_page, offset, last_page) {
+		var url = "/tag/" + $scope.tagId.toString();
+		url += "?page=" + Math.min(Math.max(parseInt(destination_page) + parseInt(offset), 1), last_page).toString();
+		return url;
 	}
 
 	$scope.fetchProducts();

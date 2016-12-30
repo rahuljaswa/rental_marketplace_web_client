@@ -16,7 +16,9 @@ angular.module('app.country', [])
 		$scope.pages_to_display = pagination.pages_to_display;
 	});
 
-	$scope.pageOffsetBy = function(offset) {
-		return Math.min(Math.max(parseInt($scope.query.page) + parseInt(offset), 1), $scope.last_page).toString();
+	$scope.paginatedURLWithOffset = function(destination_page, offset, last_page) {
+		var url = "/country/" + $scope.query.countryId;
+		url += "?page=" + Math.min(Math.max(parseInt(destination_page) + parseInt(offset), 1), last_page).toString();
+		return url;
 	}
 }]);

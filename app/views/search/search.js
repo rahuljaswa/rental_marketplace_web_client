@@ -47,8 +47,16 @@ angular.module('app.search', [])
 		});
 	}
 
-	$scope.pageOffsetBy = function(offset) {
-		return Math.min(Math.max(parseInt($scope.query.page) + parseInt(offset), 1), $scope.last_page).toString();
+	$scope.paginatedURLWithOffset = function(destination_page, offset, last_page) {
+		var url = "/search?";
+		url += "&page=" + Math.min(Math.max(parseInt(destination_page) + parseInt(offset), 1), last_page).toString();
+		url += "&query=" + ($scope.query.query ? $scope.query.query : "");
+		url += "&latitude=" + $scope.query.latitude;
+		url += "&longitude=" + $scope.query.longitude;
+		url += "&locality=" + $scope.query.locality;
+		url += "&radius=" + $scope.query.radius;
+		url += "&active=" + $scope.query.active;
+		return url;
 	}
 
 	$scope.fetchSearchResults();

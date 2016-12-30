@@ -9,15 +9,15 @@
 	<nav aria-label="Page navigation" class="pagination" ng-if="cities.data.length > 0">
 		<ul class="pagination">
 			<li ng-class="{ disabled: query.page == 1 }" ng-disabled="query.page == 1">
-				<a ng-href="/country/{{ query.countryId }}?page={{ pageOffsetBy(-1) }}" aria-label="Previous">
+				<a ng-href="{{ paginatedURLWithOffset(query.page, -1, last_page) }}" aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 				</a>
 			</li>
 			<li ng-repeat="page in pages_to_display" ng-class="{ active: query.page == page }">
-				<a ng-href="/country/{{ query.countryId }}?page={{ page }}">{{ page }}</a>
+				<a ng-href="{{ paginatedURLWithOffset(page, 0, last_page) }}">{{ page }}</a>
 			</li>
 			<li ng-class="{ disabled: query.page == last_page }" ng-disabled="query.page == last_page">
-				<a ng-href="/country/{{ query.countryId }}?page={{ pageOffsetBy(1) }}" aria-label="Next">
+				<a ng-href="{{ paginatedURLWithOffset(query.page, 1, last_page) }}" aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
 				</a>
 			</li>

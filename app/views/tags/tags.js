@@ -4,9 +4,11 @@ angular.module('app.tags', [])
 	
 	document.title = "BorrowBear - Search Categories";
 
-	$scope.city = Cities.get({ id: $stateParams.cityId }, function(response) {
-		document.title = "BorrowBear - Search Categories in " + $scope.city.city_name + ", " + $scope.city.country.country_name;
-	});
+	if ($stateParams.cityId) {
+		$scope.city = Cities.get({ id: $stateParams.cityId }, function(response) {
+			document.title = "BorrowBear - Search Categories in " + $scope.city.city_name + ", " + $scope.city.country.country_name;
+		});
+	}
 
 	$scope.tags = [];
 	
@@ -44,9 +46,13 @@ angular.module('app.tags', [])
 		});
 	}
 
-	$scope.pageOffsetBy = function(offset) {
-		return Math.min(Math.max(parseInt($scope.query.page) + parseInt(offset), 1), $scope.last_page).toString();
+	$scope.paginatedURLWithOffset = function(destination_page, offset, last_page) {
+		var url = "/tags?";
+		url += "&page=" + Math.min(Math.max(parseInt(destination_page) + parseInt(offset), 1), last_page).toString();
+		url += "&cityId=" + ($scope.city ? $scope.city.id : "");
+		url += "&query=" + ($scope.query.query ? $scope.query.query : "");
+		return url;
 	}
-
+	
 	$scope.fetchTags();
 }]);
