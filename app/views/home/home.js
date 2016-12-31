@@ -40,7 +40,11 @@ angular.module('app.home', [])
 
 .directive('googlePlacesCitiesHome', function() {
 	return function($scope, element) {
-		var autocomplete = new google.maps.places.Autocomplete(element[0], { types: ['(cities)'] });
+		var options = {
+			types: ['(cities)'],
+			componentRestrictions: { country: 'us' }
+		}
+		var autocomplete = new google.maps.places.Autocomplete(element[0], options);
 		autocomplete.addListener('place_changed', function() {
 			var place = autocomplete.getPlace();
 			$scope.productsQuery.latitude = place.geometry.location.lat();

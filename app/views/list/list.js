@@ -175,7 +175,10 @@ angular.module('app.list', ['uuid'])
 
 .directive('googlePlacesEstablishments', function() {
 	return function($scope, element) {
-		var autocomplete = new google.maps.places.Autocomplete(element[0]);
+		var options = {
+			componentRestrictions: { country: 'us' }
+		}
+		var autocomplete = new google.maps.places.Autocomplete(element[0], options);
 		autocomplete.addListener('place_changed', function() {
 			var place = autocomplete.getPlace();
 			var latitude = place.geometry.location.lat();
