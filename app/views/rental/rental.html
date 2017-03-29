@@ -13,7 +13,7 @@
 			<p class="row"><strong>Borrow date</strong>: {{ rental.starts_at | date:'EEE, MMM d' }} | <strong>Return date</strong>: {{ rental.ends_at | date:'EEE, MMM d' }}</p>
 			<p class="row">Total: <strong>{{ rental.quoted_total | currency : nil : 2 }}</strong></p>
 			<p class="row">Refundable security deposit: <strong>{{ rental.quoted_security_deposit | currency : nil : 2 }}</strong></p>
-			<p class="row">Proposed pickup location: <a ng-href="{{ rental.product.pickup_location.google_maps_url }}" target="_blank">{{ rental.product.pickup_location.formatted_address }}</a><span ng-if="user.id == rental.product.owner.id"> (You are the owner of this product. You can see the exact pickup location, but no one else can.)</span></p>
+			<p class="row">Approximate pickup location: {{ rental.product.pickup_location.approximate_formatted_address }}</p>
 			<p class="row">{{ rental.product.description }}</p>
 			<div class="row item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in rental.product.image_urls track by $index"></div>
 		</div>

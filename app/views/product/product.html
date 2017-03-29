@@ -36,8 +36,7 @@
 		<div class="col-xs-12 col-md-9 content-column">
 			<h2 class="row">{{ product.title }}<span ng-if="!product.active"> (deactivated)</span></h2>
 			<p>
-				<strong>{{ product.price | currency : nil : 0 }} per day</strong> | 
-				<a ng-href="{{ product.pickup_location.google_maps_url }}" target="_blank">{{ product.pickup_location.formatted_address }}</a><span ng-if="user.id == product.owner.id"> (You are the owner of this product. You can see the exact pickup location, but no one else can.)</span>
+				<strong>{{ product.price | currency : nil : 0 }} per day</strong> | <span>{{ product.pickup_location.formatted_address }}</span>
 			</p>
 			<p class="row">{{ product.description }}</p>
 			<p class="row">Tags: <span ng-repeat="tag in product.tags"><a ng-href="/tag/{{ tag.id }}">{{ tag.name }}</a><span ng-show="!$last">, </span></span></p>
