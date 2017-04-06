@@ -14,6 +14,7 @@ angular.module('app.product', [])
 		rentalCost: 0.0,
 		numberOfDays: 0.0,
 		securityDeposit: 0.0,
+		shipping: false,
 		startDate: null,
 		endDate: null
 	}
@@ -63,6 +64,10 @@ angular.module('app.product', [])
 		$scope.startDatePicker.opened = true;
 	}
 
+	$scope.shippingChanged = function() {
+		updatedQuotedPriceComponents();	
+	}
+
 	$scope.endDatePickerOpened = function() {
 		$scope.endDateOptions.minDate = $scope.startDate;
 		$scope.endDatePicker.opened = true;
@@ -87,7 +92,9 @@ angular.module('app.product', [])
 				endDate: $scope.rentalForm.endDate,
 				rentalCost: $scope.rentalForm.rentalCost,
 				numberOfDays: $scope.rentalForm.numberOfDays,
-				securityDeposit: $scope.rentalForm.securityDeposit
+				securityDeposit: $scope.rentalForm.securityDeposit,
+				shipping: $scope.rentalForm.shipping,
+				shippingCost: $scope.rentalForm.shippingCost
 			});
 		} else {
 			if (!$scope.rentalForm.startDate) {
@@ -114,11 +121,19 @@ angular.module('app.product', [])
 
 	function updatedQuotedPriceComponents() {
 		$scope.rentalForm.securityDeposit = $scope.product.security_deposit;
+		
 		if ($scope.rentalForm.startDate && $scope.rentalForm.endDate) {
 			$scope.rentalForm.numberOfDays = ((($scope.rentalForm.endDate - $scope.rentalForm.startDate)/24/60/60/1000) + 1.0);
 		} else {
 			$scope.rentalForm.numberOfDays = 0.0;
 		}
-		$scope.rentalForm.rentalCost = $scope.rentalForm.numberOfDays * $scope.product.price;
+
+		if ($scope.rentalForm.shipping) {
+			$scope.rentalForm.shippingCost = $scope.product.shipping_cost;
+		} else {
+			$scope.rentalForm.shippingCost = 0.0;
+		}
+
+		$scope.rentalForm.rentalCost = ($scope.rentalForm.numberOfDays * $scope.product.price) + $scope.rentalForm.shippingCost;
 	}
 }]);

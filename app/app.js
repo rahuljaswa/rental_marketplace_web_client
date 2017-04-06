@@ -481,7 +481,7 @@ angular.module('app', [
 		}
 	})
 	.state('rentConfirmation', {
-		url:'/rent_confirmation?productId&startDate&endDate&rentalCost&numberOfDays&securityDeposit',
+		url:'/rent_confirmation?productId&startDate&endDate&rentalCost&numberOfDays&securityDeposit&shipping&shippingCost',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',

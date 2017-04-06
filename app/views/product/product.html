@@ -18,11 +18,17 @@
 				<div class="form-group end-date" ng-class="{ 'has-error': endDateInvalid }">
 					<input type="text" class="form-control" uib-datepicker-popup="fullDate" ng-model="rentalForm.endDate" ng-focus="endDatePickerOpened()" ng-change="endDateChanged()" is-open="endDatePicker.opened" on-open-focus="false" datepicker-options="endDateOptions" ng-required="true" show-button-bar="false" placeholder="Return date">
 				</div>
+				<div class="form-group shipping" ng-if="product.shippable">
+					<input type="checkbox" id="shipping-input" ng-model="rentalForm.shipping" ng-change="shippingChanged()">
+					<label for="shipping-input">Ship to me (not a local pickup)</label>
+				</div>
+
 				<br />
 
 				<div class="row rental-cost-math">{{ product.price | currency : nil : 0 }} x {{ rentalForm.numberOfDays | number : 0 }} days</div>
+				<div class="row rental-cost-shipping-cost">{{ rentalForm.shippingCost | currency : nil : 0 }} shipping</div>
 				<hr class="small" />
-				<div class="row rental-cost-total">Total: <strong>{{ rentalForm.rentalCost | currency : nil : 2 }}</strong></div>
+				<div class="row rental-cost-total">Subtotal: <strong>{{ rentalForm.rentalCost | currency : nil : 2 }}</strong></div>
 				<div class="row rental-cost-total">Security deposit: <strong>{{ rentalForm.securityDeposit | currency : nil : 2 }}</strong></div>
 
 				<br /><br />
@@ -36,7 +42,7 @@
 		<div class="col-xs-12 col-md-9 content-column">
 			<h2 class="row">{{ product.title }}<span ng-if="!product.active"> (deactivated)</span></h2>
 			<p>
-				<strong>{{ product.price | currency : nil : 0 }} per day</strong> | <span>{{ product.pickup_location.formatted_address }}</span>
+				<strong>{{ product.price | currency : nil : 0 }} per day</strong> | <span>{{ product.pickup_location.formatted_address }}</span> | <span ng-if="product.shippable">Shipping Available</span><span ng-if="!product.shippable">Local Pickup Only</span>
 			</p>
 			<p class="row">{{ product.description }}</p>
 			<p class="row">Tags: <span ng-repeat="tag in product.tags"><a ng-href="/tag/{{ tag.id }}">{{ tag.name }}</a><span ng-show="!$last">, </span></span></p>

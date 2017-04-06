@@ -11,6 +11,7 @@
 					<hr class="small" style="width: 250px;" />
 					<div class="rental-cost-rental-fee">Rental fee: {{ priceQuote.rental_fee | currency : nil : 2 }}</div>
 					<div class="rental-cost-platform-fee">Platform fee: {{ priceQuote.platform_fee | currency : nil : 2 }}</div>
+					<div class="rental-cost-shipping-fee">Shipping & handling fee: {{ priceQuote.shipping_fee | currency : nil : 2 }}</div>
 					<div class="rental-cost-taxes">Taxes: {{ priceQuote.taxes | currency : nil : 2 }}</div>
 					<hr class="small" style="width: 250px;" />
 					<div class="rental-cost-platform-fee">Payment processing fee: {{ priceQuote.payment_processing_fee | currency : nil : 2 }}</div>
@@ -20,34 +21,38 @@
 					<div class="rental-cost-security-deposit">Security deposit: {{ priceQuote.security_deposit | currency : nil : 2 }}</div>
 				</div>
 
+				<hr style="max-width: 350px;"/>
+
 				<div class="form-group">
-					<div class="col-xs-12">
+					<div class="col-xs-12 no-padding">
 						<select ng-model="trackingInputs.selectedCardOption" ng-options="idx as card for (idx, card) in cardSelectOptions"></select>
 					</div>
 				</div>
 
 				<div ng-if="trackingInputs.selectedCardOption == 0" class="add-credit-card container">
 					<div class="form-group">
-						<div class="col-xs-11 col-sm-8">
+						<div class="col-xs-11 col-sm-8 no-padding">
 							<input type="text" pattern="[0-9 ]*" ng-model="secureInfo.number" class="form-control" placeholder="Credit card number" required />
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-xs-11 col-sm-8">
+						<div class="col-xs-11 col-sm-8 no-padding">
 							<input type="month" ng-model="trackingInputs.exp_date" class="form-control" required />
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-xs-11 col-sm-8">
+						<div class="col-xs-11 col-sm-8 no-padding">
 							<input type="text" pattern="[0-9]*" ng-model="secureInfo.cvc" class="form-control" placeholder="CVC" required />
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-xs-11 col-sm-8">
+						<div class="col-xs-11 col-sm-8 no-padding">
 							<input type="text" pattern="[0-9]*" ng-model="secureInfo.address_zip" class="form-control" placeholder="Postal code" required />
 						</div>
 					</div>
 				</div>
+
+				<hr style="max-width: 350px;"/>
 
 				<div class="terms-of-service form-group">
 					<input type="checkbox" id="terms-of-service-input" ng-model="priceQuote.terms_of_service">
@@ -61,7 +66,7 @@
 		<div class="col-xs-12 col-md-6 side-column">
 			<h2 class="row">{{ product.title }}<span ng-if="!product.active"> (deactivated)</span></h2>
 			<p>
-				<strong>{{ product.price | currency : nil : 0 }} per day</strong> | <span>{{ product.pickup_location.approximate_formatted_address }}</span> | <span ng-if="product.shippable">Shipping Available</span><span ng-if="!product.shippable">Local Pickup Only</span>
+				<strong>{{ product.price | currency : nil : 0 }} per day</strong> | <span>{{ product.pickup_location.formatted_address }}</span> | <span ng-if="product.shippable">Shipping Available</span><span ng-if="!product.shippable">Local Pickup Only</span>
 			</p>
 			<p class="row">{{ product.description }}</p>
 			<p class="row">Tags: <span ng-repeat="tag in product.tags"><a ng-href="/tag/{{ tag.id }}">{{ tag.name }}</a><span ng-show="!$last">, </span></span></p>

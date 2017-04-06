@@ -46,7 +46,8 @@ angular.module('app.rentConfirmation', [])
 			action: 'price_quote',
 			id: $scope.product.id,
 			starts_at: new Date($stateParams.startDate),
-			ends_at: new Date($stateParams.endDate)
+			ends_at: new Date($stateParams.endDate),
+			shipping: $stateParams.shipping
 		}, function(response) {
 			$scope.customerInformation = Users.get({
 				id: $rootScope.user.id,

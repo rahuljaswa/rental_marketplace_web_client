@@ -13,6 +13,18 @@
  	margin: 0;
  	padding: 0;
  	min-height: 100%;
+ 	label {
+ 		display: inline-block;
+ 		font-weight: normal;
+ 		vertical-align: middle;
+ 		width: 90%;
+ 		padding-left: 6px;
+ 		margin-bottom: 0;
+ 	}
+ 	input {
+ 		display: inline-block;
+ 		vertical-align: middle;
+ 	}
  	p {
  		white-space: pre-line;
  	}
@@ -516,6 +528,9 @@
  html.ng-scope body {
  	div.rent-confirmation-page {
  		div.container {
+ 			div.form-group div.no-padding {
+ 				padding-left: 0;
+ 			}
  			div.side-column {
  				h4, p {
  					text-align: left;
@@ -547,6 +562,8 @@
  					label {
  						margin-bottom: 20px;
  						text-transform: uppercase;
+ 						font-weight: bold;
+ 						padding-left: 0;
  					}
  					hr {
  						border-color: #ccc;
@@ -564,14 +581,6 @@
  					margin-bottom: 20px;
  					text-align: left;
  					width: 100%;
- 					input {
- 						display: inline;
- 						margin-right: 10px;
- 					}
- 					label {
- 						width: 90%;
- 						font-weight: normal;
- 					}
  				}
  				button.create-rental {
  					width: 200px;
