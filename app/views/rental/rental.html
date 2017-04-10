@@ -14,7 +14,7 @@
 			<p class="row">Total: <strong>{{ rental.quoted_total | currency : nil : 2 }}</strong></p>
 			<p class="row">Refundable security deposit: <strong>{{ rental.quoted_security_deposit | currency : nil : 2 }}</strong></p>
 			<p class="row">Approximate pickup location: {{ rental.product.pickup_location.formatted_address }}</p>
-			<p class="row">{{ rental.product.description }}</p>
+			<p class="row" ng-bind-html="rental.product.description | linky:'_blank'"></p>
 			<div class="row item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in rental.product.image_urls track by $index"></div>
 		</div>
 		<div class="col-xs-12 col-md-6 content-column">

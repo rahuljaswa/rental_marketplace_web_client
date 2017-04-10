@@ -68,7 +68,7 @@
 			<p>
 				<strong>{{ product.price | currency : nil : 0 }} per day</strong> | <span>{{ product.pickup_location.formatted_address }}</span> | <span ng-if="product.shippable">Shipping Available</span><span ng-if="!product.shippable">Local Pickup Only</span>
 			</p>
-			<p class="row">{{ product.description }}</p>
+			<p class="row" ng-bind-html="product.description | linky:'_blank'"></p>
 			<p class="row">Tags: <span ng-repeat="tag in product.tags"><a ng-href="/tag/{{ tag.id }}">{{ tag.name }}</a><span ng-show="!$last">, </span></span></p>
 			<div class="row item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in product.image_urls track by $index"></div>
 		</div>

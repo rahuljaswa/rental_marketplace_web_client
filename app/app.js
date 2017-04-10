@@ -46,6 +46,7 @@ angular.module('app', [
 	'ngCookies', 
 	'ngFileUpload', 
 	'ngMaterial',
+	'ngSanitize',
 	'ng-token-auth', 
 	'ui.bootstrap', 
 	'ui.router'
