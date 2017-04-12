@@ -7,7 +7,7 @@ angular.module('app.home', [])
 
 	$scope.productsQuery = {
 		query: "",
-		locality: "Palo Alto, CA, United States",
+		locality: "Palo Alto, CA",
 		latitude: 37.4281704,
 		longitude: -122.1614915,
 		radius: 50,

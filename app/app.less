@@ -96,72 +96,23 @@
  */
  html.ng-scope body {
  	div.header {
- 		nav.navbar-default.navbar-fixed-top.clear-nav {
- 			background-color: transparent;
- 			border: none;
- 			a, a:hover, a:visited {
- 				color: white;
- 				text-decoration: none;
- 			}
- 			button.navbar-toggle {
- 				border: 2px solid #fff;
- 			}
- 			button:hover, button:focus {
- 				background-color: transparent;
- 			}
- 			span.icon-bar {
- 				background-color: #fff;
- 			}
- 			a.navbar-brand {
- 				img.clear {
- 					display: block;
- 				}
- 				img.opaque {
- 					display: none;
- 				}
- 			}
- 			ul, li, ul:hover, li:hover, a {
- 				background-color: transparent;
- 				border-color: #fff;
- 				box-shadow: none;
- 			}
- 		}
- 		nav {
- 			button.navbar-toggle {
- 				margin-top: 18px;
- 				margin-bottom: 18px;
- 			}
- 			a {
- 				font-weight: bold;
- 				font-size: 16px;
- 				padding-top: 25px;
- 				padding-bottom: 25px;
- 			}
- 		}
- 		nav.navbar-fixed-top {
- 			position: absolute;
- 		}
  		nav.navbar-default {
- 			margin-bottom: 40px;
- 			a:hover {
- 				cursor: pointer;
+ 			background: #FFFFFF;
+ 			a:hover, a:visited, a:active, a.open, button:hover, button:visited, button:active, button.open {
+ 				text-decoration: none;
+ 				background-color: transparent;
  			}
  			a.navbar-brand {
  				padding-left: 8px;
  				padding-top: 10px;
  				img {
- 					height: 50px;
- 				}
- 				img.clear {
- 					display: none;
- 				}
- 				img.opaque {
- 					display: block;
- 				}		
+ 					height: 34px;
+ 				}	
  			}
  		}
  	}
  	div.content {
+ 		padding-top: 70px;
  		padding-bottom: 553px;
  	}
  	div.footer {
@@ -212,7 +163,7 @@
  				display: inline-block;
  				margin: 20px 0;
  				height: 50px;
- 				font-size: 16px;
+ 				font-size: 14px;
  			}
  			button.btn-primary {
  				border: 1px solid #14b694;
@@ -392,6 +343,27 @@
  */
  html.ng-scope body {
  	div.home-page {
+ 		div.header {
+ 			padding: 50px;
+ 			text-align: center;
+ 			span.row.title {
+ 				font-size: 30px;
+ 			}
+ 			span.row.subtitle {
+ 				font-size: 18px;
+ 			}
+ 			span.stylized {
+ 				font-size: 33px;
+ 				color: #14b694;
+ 				font-weight: bold;
+ 			}
+ 			hr {
+ 				text-align: center;
+ 				border-color: grey;
+ 				width: 75px;
+ 				margin: 20px auto;
+ 			}
+ 		}
  		div.carousel {
  			height: 600px;
  			position: relative;
@@ -445,6 +417,9 @@
  		}
  		.row a:hover {
  			text-decoration: none;
+ 		}
+ 		div.tags.container {
+ 			margin-top: 90px;
  		}
  	}
  }
