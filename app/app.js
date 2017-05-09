@@ -8,11 +8,9 @@ angular.module('app', [
 	'app.cancellation_policy',
 	'app.careers',
 	'app.convenience',
-	'app.countries',
-	'app.country',
 	'app.directives',
 	'app.errors', 
-	'app.featured_cities',
+	'app.experience', 
 	'app.filters', 
 	'app.footer', 
 	'app.help',
@@ -24,12 +22,11 @@ angular.module('app', [
 	'app.lender_policy',
 	'app.localization',
 	'app.pagination',
-	'app.product', 
 	'app.profile', 
+	'app.purchase', 
+	'app.purchaseConfirmation', 
+	'app.purchaser_policy',
 	'app.register', 
-	'app.rental', 
-	'app.rentConfirmation', 
-	'app.renter_policy',
 	'app.requestPasswordReset', 
 	'app.resetPassword', 
 	'app.resources', 
@@ -40,7 +37,7 @@ angular.module('app', [
 	'app.tags', 
 	'app.terms_and_privacy',
 	'app.verifyIdentity', 
-	'app.why_rent',
+	'app.why_purchase',
 	'app.why_lend',
 	'internationalPhoneNumber',
 	'ngCookies', 
@@ -57,8 +54,8 @@ angular.module('app', [
 	$urlRouterProvider.otherwise('/');
 
 	$authProvider.configure({
-		// apiUrl: 'http://localhost:3000/api/v1'
-		apiUrl: 'https://rental-marketplace-api.herokuapp.com/api/v1'
+		apiUrl: 'http://localhost:3000/api/v1'
+		// apiUrl: 'https://rental-marketplace-api.herokuapp.com/api/v1'
 	});
 
 	$resourceProvider.defaults.actions = {
@@ -249,57 +246,6 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('countries', {
-		url:'/countries',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/countries/countries.html',
-				controller: 'CountriesController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('country', {
-		url:'/country/:countryId?page',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/country/country.html',
-				controller: 'CountryController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
-	.state('featured_cities', {
-		url:'/featured_cities',
-		views: {
-			'header': {
-				templateUrl: '/views/navigation/navigation.html',
-				controller: 'NavigationController'
-			},
-			'content': {
-				templateUrl: 'views/_static/featured_cities/featured_cities.html',
-				controller: 'FeaturedCitiesController'
-			},
-			'footer': {
-				templateUrl: '/views/footer/footer.html',
-				controller: 'FooterController'
-			}
-		}
-	})
 	.state('help', {
 		url:'/help',
 		views: {
@@ -352,7 +298,7 @@ angular.module('app', [
 		}
 	})
 	.state('list', {
-		url:'/list/:productId?redirectPath&{redirectParams:json}',
+		url:'/list/:experienceId?redirectPath&{redirectParams:json}',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
@@ -399,16 +345,16 @@ angular.module('app', [
 			authenticate: inauthenticate 
 		}
 	})
-	.state('product', {
-		url:'/product/:productId',
+	.state('experience', {
+		url:'/experience/:experienceId',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/product/product.html',
-				controller: 'ProductController'
+				templateUrl: 'views/experience/experience.html',
+				controller: 'ExperienceController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
@@ -457,8 +403,8 @@ angular.module('app', [
 			authenticate: inauthenticate 
 		}
 	})
-	.state('rental', {
-		url:'/rental/:rentalId',
+	.state('purchase', {
+		url:'/purchase/:purchaseId',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
@@ -469,8 +415,8 @@ angular.module('app', [
 				controller: 'ErrorsController'
 			},
 			'content': {
-				templateUrl: 'views/rental/rental.html',
-				controller: 'RentalController'
+				templateUrl: 'views/purchase/purchase.html',
+				controller: 'PurchaseController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
@@ -481,8 +427,8 @@ angular.module('app', [
 			authenticate: authenticateAndVerify
 		}
 	})
-	.state('rentConfirmation', {
-		url:'/rent_confirmation?productId&startDate&endDate&rentalCost&numberOfDays&securityDeposit&shipping&shippingCost',
+	.state('purchaseConfirmation', {
+		url:'/purchase_confirmation?experience_id&equipment_rental_starts_at&equipment_rental_ends_at&total_cost&equipment_rental_number_of_days&equipment_rental_security_deposit&shipping&equipment_rental_shipping_cost&equipment_rental_delivery_cost&equipment_rental_cost&experience_guide_cost&experience_leader_cost&deliver&ship&pickup&leader&guide',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
@@ -493,8 +439,8 @@ angular.module('app', [
 				controller: 'ErrorsController'
 			},
 			'content': {
-				templateUrl: 'views/rent_confirmation/rent_confirmation.html',
-				controller: 'RentConfirmationController'
+				templateUrl: 'views/purchase_confirmation/purchase_confirmation.html',
+				controller: 'PurchaseConfirmationController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
@@ -505,16 +451,16 @@ angular.module('app', [
 			authenticate: authenticateAndVerify
 		}
 	})
-	.state('renter_policy', {
-		url:'/renter_policy',
+	.state('purchaser_policy', {
+		url:'/purchaser_policy',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/_static/_policies/renter_policy/renter_policy.html',
-				controller: 'RenterPolicyController'
+				templateUrl: 'views/_static/_policies/purchaser_policy/purchaser_policy.html',
+				controller: 'PurchaserPolicyController'
 			},
 			'footer': {
 				templateUrl: '/views/footer/footer.html',
@@ -602,7 +548,7 @@ angular.module('app', [
 		}
 	})
 	.state('tag', {
-		url:'/tag/:tagId?cityId&page',
+		url:'/tag/:tagId?page',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
@@ -619,7 +565,7 @@ angular.module('app', [
 		}
 	})
 	.state('tags', {
-		url:'/tags?query&page&cityId',
+		url:'/tags?query&page',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
@@ -693,15 +639,15 @@ angular.module('app', [
 			}
 		}
 	})
-	.state('why_rent', {
-		url:'/why_rent',
+	.state('why_purchase', {
+		url:'/why_purchase',
 		views: {
 			'header': {
 				templateUrl: '/views/navigation/navigation.html',
 				controller: 'NavigationController'
 			},
 			'content': {
-				templateUrl: 'views/_static/why_rent/why_rent.html',
+				templateUrl: 'views/_static/why_purchase/why_purchase.html',
 				controller: 'WhyRentController'
 			},
 			'footer': {

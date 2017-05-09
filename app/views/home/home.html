@@ -2,12 +2,12 @@
 	<div class="container header">
 		<span class="row header-row title">A life of <span class="stylized">fun</span>, <span class="stylized">experience</span>, and <span class="stylized">adventure.</span></span>
 		<hr />
-		<span class="row header-row subtitle">Convenient, affordable, and simple experiences and products. Delivered or shipped to your doorstep.</span>
+		<span class="row header-row subtitle">Convenient, affordable, and simple experiences and experiences. Delivered or shipped to your doorstep.</span>
 	</div>
 
 	<form class="navbar-form search">
-		<div class="search-inputs-container products">
-			<input type="text" ng-model="productsQuery.query" class="form-control query" placeholder="Search" autofocus><input type="text" ng-model="productsQuery.locality" class="form-control location" placeholder="location" google-places-cities-home><button type="button" ng-click="searchButtonPressed()" class="btn btn-primary">Search</button>
+		<div class="search-inputs-container experiences">
+			<input type="text" ng-model="experiencesQuery.query" class="form-control query" placeholder="Search" autofocus><input type="text" ng-model="experiencesQuery.locality" class="form-control location" placeholder="location" google-places-cities-home><button type="button" ng-click="searchButtonPressed()" class="btn btn-primary">Search</button>
 		</div>
 	</form>
 
@@ -25,20 +25,20 @@
 
 		<div class="row footer-row"><a href="/tags">All Categories</a></div>
 
-		<h2 class="row header-row title">Popular products</h2>
+		<h2 class="row header-row title">Popular experiences</h2>
 
-		<div class="products container">
-			<div ng-class="shouldDoubleLengthWithOffsetIndex(0, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="product in products.data">
-				<a ng-href="/product/{{ product.id }}">
-					<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ product.image_urls[0] }})'}"></div>
+		<div class="experiences container">
+			<div ng-class="shouldDoubleLengthWithOffsetIndex(0, $index) ? 'col-lg-8' : 'col-lg-4'" class="col-sm-6 col-xs-12 item-gallery" ng-repeat="experience in experiences.data">
+				<a ng-href="/experience/{{ experience.id }}">
+					<div class="col-lg-12 col-sm-12 item" ng-style="{'background-image':'url({{ experience.image_urls[0] }})'}"></div>
 					<div class="item-text">
-						<span class="item-title-bold">{{ product.price | currency : nil : 0 }}</span>
-						<span class="item-title">{{ product.title }}</span>
+						<span class="item-title-bold">{{ experience.price | currency : nil : 0 }}</span>
+						<span class="item-title">{{ experience.title }}</span>
 					</div>
 				</a>
 			</div>
 		</div>
 
-		<div class="row footer-row"><a ng-click="viewAllProductsButtonPressed()">All Products</a></div>
+		<div class="row footer-row"><a ng-click="viewAllExperiencesButtonPressed()">All Experiences</a></div>
 	</div>
 </div>

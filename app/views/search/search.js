@@ -1,6 +1,6 @@
 angular.module('app.search', [])
 
-.controller('SearchController', ['$scope', '$http', '$stateParams', 'Products', 'Pagination', function($scope, $http, $stateParams, Products, Pagination) {
+.controller('SearchController', ['$scope', '$http', '$stateParams', 'Experiences', 'Pagination', function($scope, $http, $stateParams, Experiences, Pagination) {
 	$scope.query = $stateParams;
 	$scope.query.results_per_page = 20;
 	delete $scope.query.featured;
@@ -21,11 +21,11 @@ angular.module('app.search', [])
 		if ($scope.query.query && $scope.query.locality) {
 			document.title = title + $scope.query.query + " in " + $scope.query.locality;
 		} else if ($scope.query.query) {
-			document.title = title + "Search Products Matching " + $scope.query.query;
+			document.title = title + "Search Experiences Matching " + $scope.query.query;
 		} else if ($scope.query.locality) {
-			document.title = title + "Search Products in " + $scope.query.locality;
+			document.title = title + "Search Experiences in " + $scope.query.locality;
 		} else {
-			document.title = title + "Search Products";
+			document.title = title + "Search Experiences";
 		}
 	}
 
@@ -39,7 +39,7 @@ angular.module('app.search', [])
 	}
 
 	$scope.fetchSearchResults = function() {
-		$scope.products = Products.query($scope.query, function(response) {
+		$scope.experiences = Experiences.query($scope.query, function(response) {
 			pagination = Pagination.generateInfo(response);
 			$scope.query.page = pagination.page;
 			$scope.last_page = pagination.last_page;

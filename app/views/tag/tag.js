@@ -1,20 +1,13 @@
 angular.module('app.tag', [])
 
-.controller('TagController', ['$scope', '$http', '$stateParams', 'Cities', 'Pagination', 'Products', 'Tags',  function($scope, $http, $stateParams, Cities, Pagination, Products, Tags) {
-	document.title = "BorrowBear - Products";
+.controller('TagController', ['$scope', '$http', '$stateParams', 'Cities', 'Pagination', 'Experiences', 'Tags',  function($scope, $http, $stateParams, Cities, Pagination, Experiences, Tags) {
+	document.title = "BorrowBear - Experiences";
 
 	$scope.tagId = $stateParams.tagId;
 	$scope.query = {
 		tags: $scope.tagId.toString(),
 		active: true,
 		page: $stateParams.page
-	}
-
-	cityId = $stateParams.cityId;
-	if (cityId) {
-		$scope.city = Cities.get({ id: cityId }, function(response) {
-			updateTitle();
-		});
 	}
 
 	$scope.tag = Tags.get({ id: $scope.tagId }, function(response) {
@@ -28,8 +21,8 @@ angular.module('app.tag', [])
 		});
 	}
 
-	$scope.fetchProducts = function() {
-		$scope.products = Products.query($scope.query, function(response) {
+	$scope.fetchExperiences = function() {
+		$scope.experiences = Experiences.query($scope.query, function(response) {
 			pagination = Pagination.generateInfo(response);
 			$scope.query.page = pagination.page;
 			$scope.last_page = pagination.last_page;
@@ -39,10 +32,8 @@ angular.module('app.tag', [])
 
 	function updateTitle() {
 		var title = "BorrowBear - ";
-		if ($scope.city && $scope.tag) {
-			document.title = "BorrowBear - " + $scope.tag.name + " Products For Rent In " + $scope.city.city_name + ", " + $scope.city.country.country_name;
-		} else if ($scope.tag) {
-			document.title = "BorrowBear - " + $scope.tag.name + " Products For Rent";
+		if ($scope.tag) {
+			document.title = "BorrowBear - " + $scope.tag.name + " Experiences For Rent";	
 		}
 	}
 
@@ -52,5 +43,5 @@ angular.module('app.tag', [])
 		return url;
 	}
 
-	$scope.fetchProducts();
+	$scope.fetchExperiences();
 }]);

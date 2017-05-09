@@ -1,13 +1,13 @@
 angular.module('app.profile', [])
 
-.controller('ProfileController', ['$scope', '$http', '$stateParams', '$state', 'Users', 'Products', function($scope, $http, $stateParams, $state, Users, Products) {
+.controller('ProfileController', ['$scope', '$http', '$stateParams', '$state', 'Users', 'Experiences', function($scope, $http, $stateParams, $state, Users, Experiences) {
 	document.title = "BorrowBear - Profile";
 
 	$scope.StateEnum = {
 		PROFILE: 0,
-		LISTINGS: 1, 
-		LENDINGS: 2,
-		RENTALS: 3,
+		EXPERIENCES: 1, 
+		SALES: 2,
+		PURCHASES: 3,
 		PAYMENTS: 4
 	}
 
@@ -21,9 +21,9 @@ angular.module('app.profile', [])
 		$scope.selectedIndex = state;
 	}
 
-	$scope.redirectToEditProduct = function(productId) {
+	$scope.redirectToEditExperience = function(experienceId) {
 		$state.go('list', {
-			productId: productId,
+			experienceId: experienceId,
 			redirectPath: 'profile',
 			redirectParams: $.extend({}, $stateParams)
 		});
@@ -47,16 +47,16 @@ angular.module('app.profile', [])
 		});
 	}
 
-	$scope.disableProduct = function(product) {
-		product.active = false;
-		Products.update({ id: product.id }, product, function(response) {
+	$scope.disableExperience = function(experience) {
+		experience.active = false;
+		Experiences.update({ id: experience.id }, experience, function(response) {
 			$scope.fetchUser();
 		});
 	}
 
-	$scope.enableProduct = function(product) {
-		product.active = true;
-		Products.update({ id: product.id }, product, function(response) {
+	$scope.enableExperience = function(experience) {
+		experience.active = true;
+		Experiences.update({ id: experience.id }, experience, function(response) {
 			$scope.fetchUser();
 		});
 	}

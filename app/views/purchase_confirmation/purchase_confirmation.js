@@ -1,12 +1,16 @@
-angular.module('app.rentConfirmation', [])
+angular.module('app.purchaseConfirmation', [])
 
-.controller('RentConfirmationController', ['$scope', '$rootScope', '$http', '$stateParams', '$state', 'Rentals', 'Products', 'Users', 'formattedCardFilter', function($scope, $rootScope, $http, $stateParams, $state, Rentals, Products, Users, formattedCardFilter) {
-	document.title = "BorrowBear - Confirm Rental";
+.controller('PurchaseConfirmationController', ['$scope', '$rootScope', '$http', '$stateParams', '$state', 'Purchases', 'Experiences', 'Users', 'formattedCardFilter', function($scope, $rootScope, $http, $stateParams, $state, Purchases, Experiences, Users, formattedCardFilter) {
+	document.title = "BorrowBear - Confirm Purchase";
 
 	$scope.formDisabled = false;
 
 	$scope.cardSelectOptions = ["Add new card"];
 	
+	$scope.purchaseForm = $stateParams;
+	$scope.purchaseForm.id = $stateParams.experience_id;
+	$scope.purchaseForm.action = 'price_quote';
+
 	$scope.trackingInputs = { 
 		selectedCardOption: null,
 		exp_date: null
@@ -40,15 +44,9 @@ angular.module('app.rentConfirmation', [])
 		}
 	});
 
-	$scope.product = Products.get({ id: $stateParams.productId }, function (response) {
-		document.title = "BorrowBear - Confirm " + $scope.product.title + " Rental";
-		$scope.priceQuote = Products.get({
-			action: 'price_quote',
-			id: $scope.product.id,
-			starts_at: new Date($stateParams.startDate),
-			ends_at: new Date($stateParams.endDate),
-			shipping: $stateParams.shipping
-		}, function(response) {
+	$scope.experience = Experiences.get({ id: $scope.purchaseForm.experience_id }, function (response) {
+		document.title = "BorrowBear - Confirm " + $scope.experience.title + " Purchase";
+		$scope.priceQuote = Experiences.get($scope.purchaseForm, function(response) {
 			$scope.customerInformation = Users.get({
 				id: $rootScope.user.id,
 				action: 'fetch_payment_customer'
@@ -81,12 +79,12 @@ angular.module('app.rentConfirmation', [])
 		return ($scope.priceQuote.terms_of_service && paymentProvided);
 	}
 
-	$scope.createRental = function() {
+	$scope.createPurchase = function() {
 		$scope.formDisabled = true;
 		if ($scope.validates) {
 			if ($scope.priceQuote.card_id) {
-				Rentals.create($scope.priceQuote, function(response) {
-					$state.go('rental', { rentalId: response.id });
+				Purchases.create($scope.priceQuote, function(response) {
+					$state.go('purchase', { purchaseId: response.id });
 				}, function(response) {
 					$scope.formDisabled = false;
 				});
@@ -102,8 +100,8 @@ angular.module('app.rentConfirmation', [])
 							card_token: card_token
 						}, function(response) {
 							$scope.priceQuote.card_id = card_id;
-							Rentals.create($scope.priceQuote, function(response) {
-								$state.go('rental', { rentalId: response.id });
+							Purchases.create($scope.priceQuote, function(response) {
+								$state.go('purchase', { purchaseId: response.id });
 							}, function(response) {
 								$scope.formDisabled = false;
 							});

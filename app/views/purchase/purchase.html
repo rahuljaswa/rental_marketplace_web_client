@@ -1,0 +1,49 @@
+<div class="purchase-page" ng-if="purchase.id">
+	<div class="container">
+		<div class="col-xs-12 col-md-6 side-column">
+			<h2 class="row">{{ purchase.experience.title }}</h2>
+			<h4 class="row">{{ purchase.status }}</h4>
+			<div class="form-inline row" ng-if="purchase.status != 'cancelled'">
+				<button type="submit" class="btn btn-success" ng-click="confirmButtonPressed()" ng-if="(purchase.experience.creator.id == user.id) && (purchase.status == 'pending')">Confirm</button>
+				<button type="submit" class="btn btn-danger" ng-click="rejectByExperienceCreatorButtonPressed()" ng-if="(purchase.experience.creator.id == user.id) && (purchase.status == 'pending')">Reject</button>
+				<button type="submit" class="btn btn-danger" ng-click="rejectByPurchaserButtonPressed()" ng-if="(purchase.renter.id == user.id) && (purchase.status == 'pending')">Cancel</button>
+				<button type="submit" class="btn btn-danger" ng-click="cancelByExperienceCreatorButtonPressed()" ng-if="(purchase.experience.creator.id == user.id) && (purchase.status == 'accepted')">Cancel</button>
+				<button type="submit" class="btn btn-danger" ng-click="cancelByPurchaserButtonPressed()" ng-if="(purchase.renter.id == user.id) && (purchase.status == 'accepted')">Cancel</button>
+			</div>
+			<p class="row">Total: <strong>{{ purchase.quoted_total_cost | currency : nil : 2 }}</strong></p>
+			<p class="row" ng-if="purchase.experience.equipment_rental_available"><strong>Borrow date</strong>: {{ purchase.equipment_rental_starts_at | date:'EEE, MMM d' }} | <strong>Return date</strong>: {{ purchase.equipment_rental_ends_at | date:'EEE, MMM d' }}</p>
+			<p class="row" ng-if="purchase.experience.equipment_rental_available">Refundable security deposit: <strong>{{ purchase.quoted_equipment_rental_security_deposit | currency : nil : 2 }}</strong></p>
+			<p class="row" ng-if="purchase.experience.equipment_rental_available && (purchase.equipment_rental_pickup || purchase.equipment_rental_deliver)">Approximate pickup location: {{ purchase.experience.pickup_location.formatted_address }}</p>
+			<p class="row" ng-bind-html="purchase.experience.description | linky:'_blank'"></p>
+			<div class="row item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in purchase.experience.image_urls track by $index"></div>
+		</div>
+		<div class="col-xs-12 col-md-6 content-column">
+			<fieldset ng-disabled="purchase.status == 'cancelled'">
+				<form class="form-horizontal list">
+					<div class="col-xs-12">
+						<textarea class="form-control row" ng-model="message.text" id="inputDescription" placeholder="Send message"></textarea>
+					</div>
+					<div class="col-xs-12">
+						<button class="row btn btn-primary" ng-click="sendMessage()" ng-disabled="(purchase.status == 'cancelled')">Send Message</button>
+					</div>
+				</form>
+			</fieldset>
+			<div class="message" ng-repeat="message in purchase.messages | orderBy:'-created_at'" ng-class="(message.sender.id == user.id) ? 'current-user' : 'other-user'">
+				<div class="row">
+					<div ng-if="message.sender.id == user.id" class="col-xs-2 message-top-level">
+						<img ng-src="{{ message.sender.image_url }}" class="img-rounded">
+					</div>
+					<div class="message-container col-xs-10 message-top-level">
+						<div class="message-box">
+							<div class="message-text"><strong>{{ message.sender.username }}</strong> | {{ message.created_at | date:'MMM d, h:mm a' }}</div>
+							<div class="message-text">{{ message.text }}</div>
+						</div>
+					</div>
+					<div ng-if="message.sender.id != user.id" class="col-xs-2 message-top-level">
+						<img ng-src="{{ message.sender.image_url }}" class="img-rounded">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,119 @@
+<div class="purchase-confirmation-page" ng-if="experience.id && priceQuote != null">
+	<div class="container">
+		<div class="col-xs-12 col-md-6 content-column">
+			<fieldset ng-disabled="formDisabled">
+				<h2 class="row">Confirmation</h2>
+				<p class="row"><strong>Borrow date</strong>: {{ priceQuote.equipment_rental_starts_at | date:'EEE, MMM d' }} | <strong>Return date</strong>: {{ priceQuote.equipment_rental_ends_at | date:'EEE, MMM d' }}</p>
+
+				<div class="row costs">
+					<label>Costs</label>
+
+					<div ng-if="experience.equipment_rental_available">
+						<div class="purchase-cost-days">{{ experience.equipment_rental_cost | currency : nil : 0 }} x {{ priceQuote.equipment_rental_number_of_days | number : 0 }} days</div>
+						<hr class="small" style="width: 250px;" />
+						<div class="purchase-cost-equipment-rental-cost">Rental cost: {{ priceQuote.equipment_rental_cost | currency : nil : 2 }}</div>
+						<div class="purchase-cost-platform-cost">Platform cost: {{ priceQuote.platform_cost | currency : nil : 2 }}</div>
+						<div class="purchase-cost-delivery-cost" ng-if="priceQuote.equipment_rental_delivery_cost != 0">Delivery cost: {{ priceQuote.equipment_rental_delivery_cost | currency : nil : 2 }}</div>
+						<div class="purchase-cost-shipping-cost" ng-if="priceQuote.equipment_rental_shipping_cost != 0">Shipping & handling cost: {{ priceQuote.equipment_rental_shipping_cost | currency : nil : 2 }}</div>
+						<hr class="small" style="width: 250px;" />
+						<div class="purchase-cost-taxes">Taxes: {{ priceQuote.taxes | currency : nil : 2 }}</div>
+						<div class="purchase-cost-platform-cost">Payment processing cost: {{ priceQuote.payment_processing_cost | currency : nil : 2 }}</div>
+						<div class="purchase-cost-platform-cost">Payment transfer cost: {{ priceQuote.payment_transfer_cost | currency : nil : 2 }}</div>
+						<hr class="small" style="width: 250px;" />
+						<div class="purchase-cost-total">Total: <strong>{{ priceQuote.total_cost | currency : nil : 2 }}</strong></div>
+						<div class="purchase-cost-security-deposit">Security deposit: {{ priceQuote.equipment_rental_security_deposit | currency : nil : 2 }}</div>
+					</div>
+
+					<div ng-if="experience.experience_guide_available">
+						<div class="purchase-cost">{{ experience.experience_guide_cost | currency : nil : 2 }}
+							<hr class="small" style="width: 250px;" />
+							<div class="purchase-cost-taxes">Taxes: {{ priceQuote.taxes | currency : nil : 2 }}</div>
+							<div class="purchase-cost-platform-cost">Payment processing cost: {{ priceQuote.payment_processing_cost | currency : nil : 2 }}</div>
+							<div class="purchase-cost-platform-cost">Payment transfer cost: {{ priceQuote.payment_transfer_cost | currency : nil : 2 }}</div>
+							<hr class="small" style="width: 250px;" />
+							<div class="purchase-cost-total">Total: <strong>{{ priceQuote.total_cost | currency : nil : 2 }}</strong></div>
+						</div>
+					</div>
+
+					<div ng-if="experience.experience_leader_available">
+						<div class="purchase-cost">{{ experience.experience_leader_cost | currency : nil : 2 }}
+							<hr class="small" style="width: 250px;" />
+							<div class="purchase-cost-taxes">Taxes: {{ priceQuote.taxes | currency : nil : 2 }}</div>
+							<div class="purchase-cost-platform-cost">Payment processing cost: {{ priceQuote.payment_processing_cost | currency : nil : 2 }}</div>
+							<div class="purchase-cost-platform-cost">Payment transfer cost: {{ priceQuote.payment_transfer_cost | currency : nil : 2 }}</div>
+							<hr class="small" style="width: 250px;" />
+							<div class="purchase-cost-total">Total: <strong>{{ priceQuote.total_cost | currency : nil : 2 }}</strong></div>
+						</div>
+					</div>
+				</div>
+
+				<hr style="max-width: 350px;"/>
+
+				<div class="form-group">
+					<div class="col-xs-12 no-padding">
+						<select ng-model="trackingInputs.selectedCardOption" ng-options="idx as card for (idx, card) in cardSelectOptions"></select>
+					</div>
+				</div>
+
+				<div ng-if="trackingInputs.selectedCardOption == 0" class="add-credit-card container">
+					<div class="form-group">
+						<div class="col-xs-11 col-sm-8 no-padding">
+							<input type="text" pattern="[0-9 ]*" ng-model="secureInfo.number" class="form-control" placeholder="Credit card number" required />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-11 col-sm-8 no-padding">
+							<input type="month" ng-model="trackingInputs.exp_date" class="form-control" required />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-11 col-sm-8 no-padding">
+							<input type="text" pattern="[0-9]*" ng-model="secureInfo.cvc" class="form-control" placeholder="CVC" required />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-11 col-sm-8 no-padding">
+							<input type="text" pattern="[0-9]*" ng-model="secureInfo.address_zip" class="form-control" placeholder="Postal code" required />
+						</div>
+					</div>
+				</div>
+
+				<hr style="max-width: 350px;"/>
+
+				<div class="terms-of-service form-group">
+					<input type="checkbox" id="terms-of-service-input" ng-model="priceQuote.terms_of_service">
+					<label for="terms-of-service-input">I agree to the <a href="/purchaser_policy" target="_blank">Renter Policy</a> and <a href="/cancellation_policy" target="_blank">Cancellation Policy</a>. I also agree to pay the total amount shown, which includes Service Fees.</label>
+				</div>
+
+				<button type="button" class="btn btn-primary create-purchase" ng-click="createPurchase()" ng-disabled="!validates()">Confirm</button>
+			</fieldset>
+		</div>
+
+		<div class="col-xs-12 col-md-6 side-column">
+			<h2 class="row">{{ experience.title }}<span ng-if="!experience.active"> (deactivated)</span></h2>
+			<p class="row"><span ng-repeat="tag in experience.tags"><a ng-href="/tag/{{ tag.id }}">{{ tag.name }}</a><span ng-show="!$last">, </span></span></p>
+			<ul class="fa-ul">
+				<li ng-if="experience.equipment_rental_available"><i class="fa-li fa fa-compass"></i>Equipment sharing</li>
+				<li ng-if="experience.equipment_rental_available && experience.equipment_rental_deliverable"><i class="fa-li fa fa-car"></i>Local delivery</li>
+				<li ng-if="experience.equipment_rental_available && experience.equipment_rental_pickupable"><i class="fa-li fa fa-bicycle"></i>Local pickup</li>
+				<li ng-if="experience.equipment_rental_available && experience.equipment_rental_shippable"><i class="fa-li fa fa-envelope-o"></i>Shipping</li>
+				<li ng-if="experience.equipment_rental_available && (experience.equipment_rental_deliverable || experience.equipment_rental_pickupable)"><i class="fa-li fa fa-map-signs"></i>Pickup and delivery from {{ experience.pickup_location.formatted_address }}</li>
+
+				<li ng-if="experience.experience_guide_available"><i class="fa-li fa fa-map-o"></i>Digital guidebook</li>
+
+				<li ng-if="experience.experience_leader_available"><i class="fa-li fa fa-users"></i>Guided experience & tour</li>
+				<li ng-if="experience.experience_leader_available"><i class="fa-li fa fa-map-signs"></i>Meet in {{ experience.pickup_location.formatted_address }}</li>				
+			</ul>
+
+			<hr/>
+
+			<p class="row" ng-bind-html="experience.description | linky:'_blank'"></p>
+
+			<hr/>
+
+			<div class="images container item-gallery">
+				<div class="col-lg-4 col-sm-6 col-xs-12 item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in experience.image_urls track by $index"></div>
+			</div>
+		</div>
+	</div>
+</div>

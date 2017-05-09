@@ -1,20 +1,20 @@
 angular.module('app.resources', ['ngResource'])
 
 .factory('BaseUrl', function() {
-	// return 'http://localhost:3000';
-	return 'https://rental-marketplace-api.herokuapp.com';
+	return 'http://localhost:3000';
+	// return 'https://rental-marketplace-api.herokuapp.com';
 })
 
 .factory('ClientUrl', function(BaseUrl) {
 	return (BaseUrl + '/api/v1');
 })
 
-.factory('Products', function($resource, ClientUrl) {
-	return $resource(ClientUrl + '/products/:id/:action');
+.factory('Experiences', function($resource, ClientUrl) {
+	return $resource(ClientUrl + '/experiences/:id/:action');
 })
 
-.factory('Rentals', function($resource, ClientUrl) {
-	return $resource(ClientUrl + '/rentals/:id');
+.factory('Purchases', function($resource, ClientUrl) {
+	return $resource(ClientUrl + '/purchases/:id');
 })
 
 .factory('Tags', function($resource, ClientUrl) {

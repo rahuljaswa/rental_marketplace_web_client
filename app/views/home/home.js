@@ -1,11 +1,11 @@
 angular.module('app.home', [])
 
-.controller('HomeController', ['$scope', '$http', '$state', 'Products', 'Tags', 'CarouselImages', function($scope, $http, $state, Products, Tags, CarouselImages) {
-	document.title = "BorrowBear - Product Rental Marketplace";
+.controller('HomeController', ['$scope', '$http', '$state', 'Experiences', 'Tags', 'CarouselImages', function($scope, $http, $state, Experiences, Tags, CarouselImages) {
+	document.title = "BorrowBear";
 
-	$scope.featured_products = CarouselImages;
+	$scope.featured_experiences = CarouselImages;
 
-	$scope.productsQuery = {
+	$scope.experiencesQuery = {
 		query: "",
 		locality: "Palo Alto, CA",
 		latitude: 37.4281704,
@@ -17,7 +17,7 @@ angular.module('app.home', [])
 		page: 1
 	};
 
-	$scope.products = Products.query($scope.productsQuery);
+	$scope.experiences = Experiences.query($scope.experiencesQuery);
 
 	$scope.tags = Tags.query({
 		query: "",
@@ -25,8 +25,8 @@ angular.module('app.home', [])
 		featured: true
 	});
 
-	$scope.viewAllProductsButtonPressed = function() {
-		$state.go('search', $scope.productsQuery);
+	$scope.viewAllExperiencesButtonPressed = function() {
+		$state.go('search', $scope.experiencesQuery);
 	}
 
 	$scope.viewAllCategoriesButtonPressed = function() {
@@ -34,7 +34,7 @@ angular.module('app.home', [])
 	}
 
 	$scope.searchButtonPressed = function() {
-		$state.go('search', $scope.productsQuery);
+		$state.go('search', $scope.experiencesQuery);
 	}
 }])
 
@@ -47,9 +47,9 @@ angular.module('app.home', [])
 		var autocomplete = new google.maps.places.Autocomplete(element[0], options);
 		autocomplete.addListener('place_changed', function() {
 			var place = autocomplete.getPlace();
-			$scope.productsQuery.latitude = place.geometry.location.lat();
-			$scope.productsQuery.longitude = place.geometry.location.lng();
-			$scope.productsQuery.locality = place.formatted_address;
+			$scope.experiencesQuery.latitude = place.geometry.location.lat();
+			$scope.experiencesQuery.longitude = place.geometry.location.lng();
+			$scope.experiencesQuery.locality = place.formatted_address;
 		});
 	};
 });

@@ -1,39 +1,44 @@
 angular.module('app.list', ['uuid'])
 
-.controller('ListController', ['$scope', '$http', '$q', 'Upload', 'rfc4122', '$stateParams', '$state', 'Products', 'Tags', 'ClientUrl', function($scope, $http, $q, Upload, rfc4122, $stateParams, $state, Products, Tags, ClientUrl) {
+.controller('ListController', ['$scope', '$http', '$q', 'Upload', 'rfc4122', '$stateParams', '$state', 'Experiences', 'Tags', 'ClientUrl', function($scope, $http, $q, Upload, rfc4122, $stateParams, $state, Experiences, Tags, ClientUrl) {
 	document.title = "BorrowBear - Rent Your Stuff";
 
 	$scope.formDisabled = false;
 
-	$scope.uploadsInProgress = {};
-	$scope.product = { 
-		id: $stateParams.productId,
+	$scope.thumbnailUploadsInProgress = {};
+	$scope.contentUploadsInProgress = {};
+	$scope.experience = { 
+		id: $stateParams.experienceId,
 		pickup_location: {},
-		image_urls: [],
+		file_urls: [],
 		tags: []
 	}
 
+	$scope.experienceTypes = ["Digital Guide", "Equipment", "In Person"];
+
 	$scope.tracking = {
-		tags: null
+		tags: null,
+		selectedExperienceIndex: ((0).toString()),
+		selectedExperienceType: $scope.experienceTypes[0]
 	}
 
-	$scope.editingMode = $scope.product.id;
+	$scope.editingMode = $scope.experience.id;
 
 	if ($scope.editingMode) {
-		$scope.product = Products.get($scope.product, function(response) {
+		$scope.experience = Experiences.get($scope.experience, function(response) {
 			var formatted_pickup_location = "";
-			if ($scope.product.pickup_location.establishment_name) {
-				formatted_pickup_location += $scope.product.pickup_location.establishment_name;
+			if ($scope.experience.pickup_location.establishment_name) {
+				formatted_pickup_location += $scope.experience.pickup_location.establishment_name;
 			}
-			if ($scope.product.pickup_location.formatted_address) {
+			if ($scope.experience.pickup_location.formatted_address) {
 				formatted_pickup_location += ", ";
-				formatted_pickup_location += $scope.product.pickup_location.formatted_address;
+				formatted_pickup_location += $scope.experience.pickup_location.formatted_address;
 			}
-			$scope.product.formatted_pickup_location = formatted_pickup_location;
+			$scope.experience.formatted_pickup_location = formatted_pickup_location;
 
 			var trackingTags = "";
-			for (i = 0; i < $scope.product.tags.length; i++) {
-				var tag = $scope.product.tags[i].name;
+			for (i = 0; i < $scope.experience.tags.length; i++) {
+				var tag = $scope.experience.tags[i].name;
 				if (i != 0) {
 					trackingTags += ", ";
 				}
@@ -50,17 +55,21 @@ angular.module('app.list', ['uuid'])
 			for (var i = 0; i < tagsNames.length; i++) {
 				tags.push({ "name": tagsNames[i] });
 			}
-			$scope.product.tags = tags;
+			$scope.experience.tags = tags;
 		} else {
-			$scope.product.tags = []
+			$scope.experience.tags = []
 		}
+	});
+
+	$scope.$watch('tracking.selectedExperienceIndex', function(value) {
+		$scope.tracking.selectedExperienceType = $scope.experienceTypes[value];
 	});
 
 	$scope.fetchImageUploadUrl = function() {
 		var request = ClientUrl + "/images/presigned_url";
 		$http.get(request)
 		.success(function(response) {
-			$scope.imageUploadUrl = response;
+			$scope.fileUploadUrl = response;
 		});
 	}
 
@@ -74,96 +83,105 @@ angular.module('app.list', ['uuid'])
 
 	$scope.submitButtonPressed = function() {
 		if ($scope.editingMode) {
-			Products.update({ id: $scope.product.id }, $scope.product, function(response) {
+			Experiences.update({ id: $scope.experience.id }, $scope.experience, function(response) {
 				if ($stateParams.redirectPath) {
 					$state.go($stateParams.redirectPath, $stateParams.redirectParams);
 				} else {
-					$state.go('product', { productId: $scope.product.id });
+					$state.go('experience', { experienceId: $scope.experience.id });
 				}
 			});
 		} else {
-			var newProduct = Products.create($scope.product, function(response) {
+			var newExperience = Experiences.create($scope.experience, function(response) {
 				if ($stateParams.redirectPath) {
 					$state.go($stateParams.redirectPath, $stateParams.redirectParams);
 				} else {
-					$state.go('product', { productId: newProduct.id });
+					$state.go('experience', { experienceId: newExperience.id });
 				}
 			});
 		}
 	}
 
 	$scope.validates = function() {
-		return ($scope.product.title && 
-			$scope.product.description && 
-			$scope.product.pickup_location.google_place_id && 
-			($scope.product.price != null) && 
-			($scope.product.security_deposit != null) && 
-			($scope.product.tags.length > 0) &&
-			($scope.product.image_urls.length > 0) &&
-			(Object.keys($scope.uploadsInProgress).length === 0));
+		return ($scope.experience.title && 
+			$scope.experience.description && 
+			$scope.experience.pickup_location.google_place_id && 
+			($scope.experience.price != null) && 
+			($scope.experience.security_deposit != null) && 
+			($scope.experience.tags.length > 0) &&
+			($scope.experience.file_urls.length > 0) &&
+			(Object.keys($scope.thumbnailUploadsInProgress).length === 0) &&
+			(Object.keys($scope.contentUploadsInProgress).length === 0));
 	}
 
 	$scope.removeImageUrlAtIndex = function(index) {
-		$scope.product.image_urls.splice(index, 1);
+		$scope.experience.file_urls.splice(index, 1);
 	}
 
-	$scope.prepareThumbnails = function(files) {
+	$scope.prepareFiles = function(files, type) {
 		for (var i = 0; i < files.length; i++) {
-			prepareFileForUploadIfNecessary(files[i], 'processing');
+			prepareFileForUploadIfNecessary(files[i], 'processing', type);
 		}
 	}
 
-	$scope.uploadFiles = function(files) {
+	$scope.uploadFiles = function(files, type) {
 		if (files && files.length) {
 			for (var i = 0; i < files.length; i++) {
-				$scope.uploadFile(files[i]);
+				$scope.uploadFile(files[i], type);
 			}
 		}
 	}
 
-	$scope.uploadFile = function(file) {
-		var uploadInProgress = $scope.uploadsInProgress[file.name];
-		if (file && (!uploadInProgress || (uploadInProgress.status != 'uploading'))) {
-			if (uploadInProgress) {
-				$scope.uploadsInProgress[file.name].status = 'uploading';
+	$scope.uploadFile = function(file, type) {
+		var uploads = uploadsInProgressForType(type);
+		var fileUploadInProgress = uploads[file.name];
+
+		if (file && (!fileUploadInProgress || (fileUploadInProgress.status != 'uploading'))) {
+			if (fileUploadInProgress) {
+				uploads[file.name].status = 'uploading';
 			} else {
-				prepareFileForUploadIfNecessary(file, 'uploading');
+				prepareFileForUploadIfNecessary(file, 'uploading', type);
 			}
 
-			var imageFilename = $scope.uploadsInProgress[file.name].imageFilename;
+			var fileFilename = uploads[file.name].fileFilename;
 
 			Upload.upload({
-				url: $scope.imageUploadUrl.url,
+				url: $scope.fileUploadUrl.url,
 				method: 'POST',
 				data: {
-					key: imageFilename,
-					AWSAccessKeyId: $scope.imageUploadUrl.access_key,
+					key: fileFilename,
+					AWSAccessKeyId: $scope.fileUploadUrl.access_key,
 					acl: 'private',
-					policy: $scope.imageUploadUrl.policy,
-					signature: $scope.imageUploadUrl.signature,
+					policy: $scope.fileUploadUrl.policy,
+					signature: $scope.fileUploadUrl.signature,
 					"Content-Type": file.type != '' ? file.type : 'application/octet-stream',
-					filename: imageFilename,
+					filename: fileFilename,
 					file: file
 				}
 			}).then(function (response) {
-				var imageUrl = $scope.uploadsInProgress[file.name].imageUrl;
-				$scope.product.image_urls.push(imageUrl)
-				delete $scope.uploadsInProgress[file.name];
+				var fileUrl = uploads[file.name].fileUrl;
+				$scope.experience.file_urls.push(fileUrl)
+				console.log($scope);
+				delete uploads[file.name];
 			}, function (response) {
-				delete $scope.uploadsInProgress[file.name];
+				delete uploads[file.name];
 			}, function (evt) {
-				$scope.uploadsInProgress[file.name].progress = parseInt(100.0 * evt.loaded / evt.total);
+				uploads[file.name].progress = parseInt(100.0 * evt.loaded / evt.total);
 			});
 		}
 	}
 
-	function prepareFileForUploadIfNecessary(file, status) {
-		if (!$scope.uploadsInProgress[file.name]) {
-			var imageFilename = rfc4122.v4();
-			$scope.uploadsInProgress[file.name] = {
+	function uploadsInProgressForType(type) {
+		return ((type === 'thumbnail') ? $scope.thumbnailUploadsInProgress : $scope.contentUploadsInProgress);
+	}
+
+	function prepareFileForUploadIfNecessary(file, status, type) {
+		var uploads = uploadsInProgressForType(type);
+		if (!uploads[file.name]) {
+			var fileFilename = rfc4122.v4();
+			uploads[file.name] = {
 				status: status,
-				imageFilename: imageFilename,
-				imageUrl: ($scope.imageUploadUrl.image_url_prefix + imageFilename),
+				fileFilename: fileFilename,
+				fileUrl: ($scope.fileUploadUrl.file_url_prefix + fileFilename),
 				progress: 10,
 				file: file
 			};
@@ -210,22 +228,22 @@ angular.module('app.list', ['uuid'])
 				}
 			}
 
-			$scope.product.pickup_location.latitude = latitude;
-			$scope.product.pickup_location.longitude = longitude;
-			$scope.product.pickup_location.formatted_address = place.formatted_address;
-			$scope.product.pickup_location.google_place_id = place.place_id;			
-			$scope.product.pickup_location.google_maps_url = place.url;
-			$scope.product.pickup_location.street_number = streetNumber;
-			$scope.product.pickup_location.country = country;
-			$scope.product.pickup_location.state = state;
-			$scope.product.pickup_location.postal_code = postalCode;
-			$scope.product.pickup_location.street_name = streetName;
-			$scope.product.pickup_location.city = city;
+			$scope.experience.pickup_location.latitude = latitude;
+			$scope.experience.pickup_location.longitude = longitude;
+			$scope.experience.pickup_location.formatted_address = place.formatted_address;
+			$scope.experience.pickup_location.google_place_id = place.place_id;			
+			$scope.experience.pickup_location.google_maps_url = place.url;
+			$scope.experience.pickup_location.street_number = streetNumber;
+			$scope.experience.pickup_location.country = country;
+			$scope.experience.pickup_location.state = state;
+			$scope.experience.pickup_location.postal_code = postalCode;
+			$scope.experience.pickup_location.street_name = streetName;
+			$scope.experience.pickup_location.city = city;
 
-			if ($scope.product.pickup_location.formatted_address.includes(place.name)) {
-				$scope.product.pickup_location.establishment_name = null;
+			if ($scope.experience.pickup_location.formatted_address.includes(place.name)) {
+				$scope.experience.pickup_location.establishment_name = null;
 			} else {
-				$scope.product.pickup_location.establishment_name = place.name;
+				$scope.experience.pickup_location.establishment_name = place.name;
 			}
 		});
 	};

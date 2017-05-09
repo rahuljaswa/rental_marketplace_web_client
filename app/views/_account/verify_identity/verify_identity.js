@@ -15,17 +15,17 @@ angular.module('app.verifyIdentity', [])
 		properties: {
 			0: {
 				breadcrumbTitle: "Email",
-				description: "Your email is used to update you with urgent matters regarding your rentals.",
+				description: "Your email is used to update you with urgent matters regarding your purchases.",
 				button_text: "Send verification email"
 			},
 			1: {
 				breadcrumbTitle: "Confirm Email",
-				description: "Your email is used to update you with urgent matters regarding your rentals.",
+				description: "Your email is used to update you with urgent matters regarding your purchases.",
 				button_text: "Verify"
 			},
 			2: {
 				breadcrumbTitle: "Phone",
-				description: "Please enter your phone number so people can communicate with you about your rentals.",
+				description: "Please enter your phone number so people can communicate with you about your purchases.",
 				button_text: "Send verification message"
 			},
 			3: {

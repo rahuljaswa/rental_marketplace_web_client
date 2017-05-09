@@ -1,65 +1,157 @@
-<div class="list-page" ng-if="((editingMode && product.id) || !editingMode)">
+<div class="list-page" ng-if="((editingMode && experience.id) || !editingMode)">
 	<fieldset ng-disabled="formDisabled">
 		<form class="form-horizontal list container">
 			<h2 class="row" ng-if="!editingMode">List a New Item</h2>
-			<h2 class="row" ng-if="editingMode">Edit {{ product.title }}</h2>
+			<h2 class="row" ng-if="editingMode">Edit {{ experience.title }}</h2>
 
-			<div class="form-group image-upload-container">
-				<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 container">
-					<div class="image-upload col-xs-4" ngf-select="uploadFiles($files)" ngf-before-model-change="prepareThumbnails($files)" multiple="multiple" ng-model="files" ngf-capture="'other'" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-fix-orientation="true" ngf-resize-if="$width > 1500 || $height > 960" ngf-resize="{width: 1500, height: 960, type: 'image/jpeg'}">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-						<span class="text">Add image</span>
-					</div>
-					<div class="image-uploaded col-xs-4" ng-repeat="imageUrl in product.image_urls" ng-style="{'background-image': 'url({{ imageUrl }})'}">
-						<a ng-click="removeImageUrlAtIndex($index)">
-							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-						</a>
-					</div>
-					<div class="image-uploading progress col-xs-4" ng-repeat="(uploadingImage, uploadingImageAttributes) in uploadsInProgress" ngf-background="uploadingImageAttributes.file" ngf-as-background="true">
-						<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': uploadingImageAttributes.progress + '%' }">
-							<span class="sr-only">{{ uploadingImageAttributes.progress | number : 0 }}% Complete</span>
+			<!-- <div class="form-group">
+				<select ng-model="tracking.selectedExperienceIndex" ng-options="idx as experienceType for (idx, experienceType) in experienceTypes"></select>
+			</div> -->
+
+			<div ng-if="tracking.selectedExperienceType == 'Digital Guide'">
+				<div class="form-group image-upload-container">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 container">
+						<div class="image-upload col-xs-4" ngf-select="uploadFiles($files, 'thumbnail')" ngf-before-model-change="prepareFiles($files, 'thumbnail')" multiple="multiple" ng-model="files" ngf-capture="'other'" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-fix-orientation="true" ngf-resize-if="$width > 1500 || $height > 960" ngf-resize="{width: 1500, height: 960, type: 'image/jpeg'}">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							<span class="text">Add thumbnail</span>
+						</div>
+						<div class="image-uploaded col-xs-4" ng-repeat="imageUrl in experience.image_urls" ng-style="{'background-image': 'url({{ imageUrl }})'}">
+							<a ng-click="removeImageUrlAtIndex($index)">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="image-uploading progress col-xs-4" ng-repeat="(uploadingImage, uploadingImageAttributes) in uploadsInProgress" ngf-background="uploadingImageAttributes.file" ngf-as-background="true">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': uploadingImageAttributes.progress + '%' }">
+								<span class="sr-only">{{ uploadingImageAttributes.progress | number : 0 }}% Complete</span>
+							</div>
 						</div>
 					</div>
 				</div>
+
+				<div class="form-group file-upload-container">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 container">
+						<div class="image-upload col-xs-4" ngf-select="uploadFiles($files, 'content')" ngf-before-model-change="prepareFiles($files, 'content')" multiple="multiple" ng-model="files" ngf-capture="'other'" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-fix-orientation="true" ngf-resize-if="$width > 1500 || $height > 960" ngf-resize="{width: 1500, height: 960, type: 'image/jpeg'}">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							<span class="text">Add file</span>
+						</div>
+						<div class="image-uploaded col-xs-4" ng-repeat="imageUrl in experience.image_urls" ng-style="{'background-image': 'url({{ imageUrl }})'}">
+							<a ng-click="removeImageUrlAtIndex($index)">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="image-uploading progress col-xs-4" ng-repeat="(uploadingImage, uploadingImageAttributes) in uploadsInProgress" ngf-background="uploadingImageAttributes.file" ngf-as-background="true">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': uploadingImageAttributes.progress + '%' }">
+								<span class="sr-only">{{ uploadingImageAttributes.progress | number : 0 }}% Complete</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" ng-model="experience.title" class="form-control" placeholder="Item name" aria-describedby="helpBlock1">
+						<span id="helpBlock1" class="help-block">Short and punchy. Bread Baking for Beginners.</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<textarea class="form-control" ng-model="experience.description" placeholder="Item description" aria-describedby="helpBlock2"></textarea>
+						<span id="helpBlock2" class="help-block">More info the better.</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" ng-model="tracking.tags" class="form-control" placeholder="Keywords" aria-describedby="helpBlock6">
+						<span id="helpBlock6" class="help-block">Separate keywords with a comma. The more specific and accurate keywords you have, the more purchase requests you'll get.</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" aria-describedby="helpBlock4">
+						<div class="input-group-addon">$</div>
+						<input type="number" class="form-control" ng-model="experience.experience_guide_cost" placeholder="Price">
+						<div class="input-group-addon">.00</div>
+					</div>
+				</div>
 			</div>
 
-			<div class="form-group">
-				<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-					<input type="text" class="form-control" ng-model="product.formatted_pickup_location" id="list-input-location" placeholder="Safe public pickup location" google-places-establishments aria-describedby="helpBlock3">
-					<span id="helpBlock3" class="help-block">Choose any safe, public location. <strong>Never</strong> give out your home address. We always obscure your exact address to help protect your privacy.</span>
+			<div ng-if="tracking.selectedExperienceType == 'Equipment'">
+				<div class="form-group image-upload-container">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 container">
+						<div class="image-upload col-xs-4" ngf-select="uploadFiles($files, 'thumbnail')" ngf-before-model-change="prepareFiles($files, 'thumbnail')" multiple="multiple" ng-model="files" ngf-capture="'other'" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-fix-orientation="true" ngf-resize-if="$width > 1500 || $height > 960" ngf-resize="{width: 1500, height: 960, type: 'image/jpeg'}">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							<span class="text">Add thumbnail</span>
+						</div>
+						<div class="image-uploaded col-xs-4" ng-repeat="imageUrl in experience.image_urls" ng-style="{'background-image': 'url({{ imageUrl }})'}">
+							<a ng-click="removeImageUrlAtIndex($index)">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="image-uploading progress col-xs-4" ng-repeat="(uploadingImage, uploadingImageAttributes) in uploadsInProgress" ngf-background="uploadingImageAttributes.file" ngf-as-background="true">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': uploadingImageAttributes.progress + '%' }">
+								<span class="sr-only">{{ uploadingImageAttributes.progress | number : 0 }}% Complete</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group file-upload-container">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 container">
+						<div class="image-upload col-xs-4" ngf-select="uploadFiles($files, 'content')" ngf-before-model-change="prepareFiles($files, 'content')" multiple="multiple" ng-model="files" ngf-capture="'other'" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-fix-orientation="true" ngf-resize-if="$width > 1500 || $height > 960" ngf-resize="{width: 1500, height: 960, type: 'image/jpeg'}">
+							<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							<span class="text">Add file</span>
+						</div>
+						<div class="image-uploaded col-xs-4" ng-repeat="imageUrl in experience.image_urls" ng-style="{'background-image': 'url({{ imageUrl }})'}">
+							<a ng-click="removeImageUrlAtIndex($index)">
+								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+							</a>
+						</div>
+						<div class="image-uploading progress col-xs-4" ng-repeat="(uploadingImage, uploadingImageAttributes) in uploadsInProgress" ngf-background="uploadingImageAttributes.file" ngf-as-background="true">
+							<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width': uploadingImageAttributes.progress + '%' }">
+								<span class="sr-only">{{ uploadingImageAttributes.progress | number : 0 }}% Complete</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" class="form-control" ng-model="experience.formatted_pickup_location" id="list-input-location" placeholder="Safe public pickup location" google-places-establishments aria-describedby="helpBlock3">
+						<span id="helpBlock3" class="help-block">Choose any safe, public location. <strong>Never</strong> give out your home address. We always obscure your exact address to help protect your privacy.</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" ng-model="experience.title" class="form-control" placeholder="Item name" aria-describedby="helpBlock1">
+						<span id="helpBlock1" class="help-block">Short and punchy. 1972 Fender Stratocaster.</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<textarea class="form-control" ng-model="experience.description" placeholder="Item description" aria-describedby="helpBlock2"></textarea>
+						<span id="helpBlock2" class="help-block">More info the better.</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<input type="text" ng-model="tracking.tags" class="form-control" placeholder="Keywords" aria-describedby="helpBlock6">
+						<span id="helpBlock6" class="help-block">Separate keywords with a comma. The more specific and accurate keywords you have, the more purchase requests you'll get.</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" aria-describedby="helpBlock4">
+						<div class="input-group-addon">$</div>
+						<input type="number" class="form-control" ng-model="experience.equipment_rental_cost" placeholder="Price">
+						<div class="input-group-addon">.00</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+						<div class="input-group-addon">$</div>
+						<input type="number" class="form-control" ng-model="experience.equipment_rental_security_deposit" placeholder="Security deposit" aria-describedby="helpBlock5">
+						<div class="input-group-addon">.00</div>
+					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-					<input type="text" ng-model="product.title" class="form-control" placeholder="Item name" aria-describedby="helpBlock1">
-					<span id="helpBlock1" class="help-block">Short and punchy. 1972 Fender Stratocaster.</span>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-					<textarea class="form-control" ng-model="product.description" placeholder="Item description" aria-describedby="helpBlock2"></textarea>
-					<span id="helpBlock2" class="help-block">More info the better.</span>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-					<input type="text" ng-model="tracking.tags" class="form-control" placeholder="Keywords" aria-describedby="helpBlock6">
-					<span id="helpBlock6" class="help-block">Separate keywords with a comma. The more specific and accurate keywords you have, the more rental requests you'll get.</span>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4" aria-describedby="helpBlock4">
-					<div class="input-group-addon">$</div>
-					<input type="number" class="form-control" ng-model="product.price" placeholder="Daily rental price">
-					<div class="input-group-addon">.00</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="input-group col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-					<div class="input-group-addon">$</div>
-					<input type="number" class="form-control" ng-model="product.security_deposit" placeholder="Security deposit" aria-describedby="helpBlock5">
-					<div class="input-group-addon">.00</div>
-				</div>
+
+			<div ng-if="tracking.selectedExperienceType == 'In Person'">
 			</div>
 
 			<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 text description">By listing and submitting your item, you agree to the <a href="/lender_policy" target="_blank">Lender Policy</a> and <a href="/cancellation_policy" target="_blank">Cancellation Policy</a>.</div>

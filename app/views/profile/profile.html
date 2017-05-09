@@ -6,19 +6,19 @@
 					Profile
 				</a>
 			</li>
-			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.LISTINGS)}" ng-if="fetchedUser.products.length > 0">
+			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.LISTINGS)}" ng-if="fetchedUser.experiences.length > 0">
 				<a ng-click="tabClicked(StateEnum.LISTINGS)" aria-controls="profile" role="tab" data-toggle="tab">
 					Listings
 				</a>
 			</li>
-			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.LENDINGS)}" ng-if="fetchedUser.lendings.length > 0">
-				<a ng-click="tabClicked(StateEnum.LENDINGS)" aria-controls="profile" role="tab" data-toggle="tab">
-					Lendings
+			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.SALES)}" ng-if="fetchedUser.sales.length > 0">
+				<a ng-click="tabClicked(StateEnum.SALES)" aria-controls="profile" role="tab" data-toggle="tab">
+					Sales
 				</a>
 			</li>
-			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.RENTALS)}" ng-if="fetchedUser.rentals.length > 0">
-				<a ng-click="tabClicked(StateEnum.RENTALS)" aria-controls="profile" role="tab" data-toggle="tab">
-					Rentals
+			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.PURCHASES)}" ng-if="fetchedUser.purchases.length > 0">
+				<a ng-click="tabClicked(StateEnum.PURCHASES)" aria-controls="profile" role="tab" data-toggle="tab">
+					Purchases
 				</a>
 			</li>
 			<li role="presentation" ng-class="{active : (selectedIndex == StateEnum.PAYMENTS)}">
@@ -41,7 +41,7 @@
 				<table class="col-lg-12 table table-bordered table-responsive">
 					<thead>
 						<tr>
-							<th>Product</th>
+							<th>Experience</th>
 							<th>Status</th>
 							<th>Update</th>
 							<th>Active</th>
@@ -50,29 +50,29 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="product in fetchedUser.products">
-							<td><a ng-href="product/{{ product.id }}">{{ product.title }}</a></td>
+						<tr ng-repeat="experience in fetchedUser.experiences">
+							<td><a ng-href="experience/{{ experience.id }}">{{ experience.title }}</a></td>
 							<td>
-								<span ng-if="product.active">Active</span>
-								<span ng-if="!product.active">Disabled</span>
+								<span ng-if="experience.active">Active</span>
+								<span ng-if="!experience.active">Disabled</span>
 							</td>
-							<td><button type="button" class="btn btn-primary" ng-click="redirectToEditProduct(product.id)">Edit</button></td>
+							<td><button type="button" class="btn btn-primary" ng-click="redirectToEditExperience(experience.id)">Edit</button></td>
 							<td>
-								<button type="button" class="btn btn-danger" ng-if="product.active" ng-click="disableProduct(product)">Deactivate</button>
-								<button type="button" class="btn btn-success" ng-if="!product.active" ng-click="enableProduct(product)">Activate</button>
+								<button type="button" class="btn btn-danger" ng-if="experience.active" ng-click="disableExperience(experience)">Deactivate</button>
+								<button type="button" class="btn btn-success" ng-if="!experience.active" ng-click="enableExperience(experience)">Activate</button>
 							</td>
-							<td>{{ product.price | currency : nil : 0 }}</td>
-							<td>{{ product.security_deposit | currency : nil : 0 }}</td>
+							<td>{{ experience.equipment_rental_price | currency : nil : 0 }}</td>
+							<td>{{ experience.equipment_rental_security_deposit | currency : nil : 0 }}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
-			<div role="tabpanel" class="tab-pane" ng-class="{active : (selectedIndex == StateEnum.LENDINGS)}" id="lendings">
+			<div role="tabpanel" class="tab-pane" ng-class="{active : (selectedIndex == StateEnum.SALES)}" id="sales">
 				<table class="col-lg-12 table table-bordered table-responsive">
 					<thead>
 						<tr>
-							<th>Rental</th>
+							<th>Purchase</th>
 							<th>Status</th>
 							<th>Pickup Date</th>
 							<th>Dropoff Date</th>
@@ -81,23 +81,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="rental in fetchedUser.lendings">
-							<td><a ng-href="rental/{{ rental.id }}">{{ rental.product.title }}</a></td>
-							<td><span style="text-transform: capitalize;">{{ rental.status }}</span></td>
-							<td>{{ rental.starts_at | date:'EEE, MMM d' }}</td>
-							<td>{{ rental.ends_at | date:'EEE, MMM d' }}</td>
-							<td>{{ rental.quoted_total | currency : nil : 0 }}</td>
-							<td>{{ rental.quoted_security_deposit | currency : nil : 0 }}</td>
+						<tr ng-repeat="purchase in fetchedUser.sales">
+							<td><a ng-href="purchase/{{ purchase.id }}">{{ purchase.experience.title }}</a></td>
+							<td><span style="text-transform: capitalize;">{{ purchase.status }}</span></td>
+							<td>{{ purchase.equipment_rental_starts_at | date:'EEE, MMM d' }}</td>
+							<td>{{ purchase.equipment_rental_ends_at | date:'EEE, MMM d' }}</td>
+							<td>{{ purchase.quoted_total_cost | currency : nil : 0 }}</td>
+							<td>{{ purchase.quoted_equipment_rental_security_deposit | currency : nil : 0 }}</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 
-			<div role="tabpanel" class="tab-pane" ng-class="{active : (selectedIndex == StateEnum.RENTALS)}" id="rentals">
+			<div role="tabpanel" class="tab-pane" ng-class="{active : (selectedIndex == StateEnum.PURCHASES)}" id="purchases">
 				<table class="col-lg-12 table table-bordered table-responsive">
 					<thead>
 						<tr>
-							<th>Rental</th>
+							<th>Purchase</th>
 							<th>Status</th>
 							<th>Pickup Date</th>
 							<th>Dropoff Date</th>
@@ -106,13 +106,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="rental in fetchedUser.rentals">
-							<td><a ng-href="rental/{{ rental.id }}">{{ rental.product.title }}</a></td>
-							<td><span style="text-transform: capitalize;">{{ rental.status }}</span></td>
-							<td>{{ rental.starts_at | date:'EEE, MMM d' }}</td>
-							<td>{{ rental.ends_at | date:'EEE, MMM d' }}</td>
-							<td>{{ rental.quoted_total | currency : nil : 0 }}</td>
-							<td>{{ rental.quoted_security_deposit | currency : nil : 0 }}</td>
+						<tr ng-repeat="purchase in fetchedUser.purchases">
+							<td><a ng-href="purchase/{{ purchase.id }}">{{ purchase.experience.title }}</a></td>
+							<td><span style="text-transform: capitalize;">{{ purchase.status }}</span></td>
+							<td>{{ purchase.equipment_rental_starts_at | date:'EEE, MMM d' }}</td>
+							<td>{{ purchase.equipment_rental_ends_at | date:'EEE, MMM d' }}</td>
+							<td>{{ purchase.quoted_total_cost | currency : nil : 0 }}</td>
+							<td>{{ purchase.quoted_equipment_rental_security_deposit | currency : nil : 0 }}</td>
 						</tr>
 					</tbody>
 				</table>

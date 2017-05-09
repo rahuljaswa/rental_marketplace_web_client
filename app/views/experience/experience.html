@@ -1,0 +1,80 @@
+<div class="experience-page" ng-if="experience.id">
+	<div class="container">
+		<div class="col-xs-12 col-md-3 side-column">
+			<div ng-if="user.id == experience.creator.id">
+				<p class="row">Thanks for being a great community member. Feel free to edit your experience here.</p>
+				<br />
+				<button type="button" class="btn btn-primary" ui-sref="list({ experienceId: experience.id })" href>Edit</button>
+				<button type="button" class="btn btn-danger" ng-if="experience.active" ng-click="disableExperience()">Deactivate</button>
+				<button type="button" class="btn btn-success" ng-if="!experience.active" ng-click="enableExperience()">Activate</button>
+				<button class="btn btn-success" ng-if="user.admin && !experience.featured" ng-click="toggleFeaturedStatus()">Feature Experience</button>
+				<button class="btn btn-danger" ng-if="user.admin && experience.featured" ng-click="toggleFeaturedStatus()">Unfeature Experience</button>
+			</div>
+
+			<div ng-if="(user.id && (user.id != experience.creator.id)) || !user.id">
+				<div ng-if="experience.equipment_rental_available">
+					<div class="form-group start-date">
+						<input type="text" id="startDateInput" class="form-control" uib-datepicker-popup="fullDate" ng-model="purchaseForm.equipment_rental_starts_at" ng-focus="startDatePickerOpened()" ng-change="startDateChanged()" is-open="startDatePicker.opened" on-open-focus="false" datepicker-options="startDateOptions" ng-required="true" placeholder="Borrow date" show-button-bar="false">
+					</div>
+					<div class="form-group end-date" ng-class="{ 'has-error': endDateInvalid }">
+						<input type="text" class="form-control" uib-datepicker-popup="fullDate" ng-model="purchaseForm.equipment_rental_ends_at" ng-focus="endDatePickerOpened()" ng-change="endDateChanged()" is-open="endDatePicker.opened" on-open-focus="false" datepicker-options="endDateOptions" ng-required="true" show-button-bar="false" placeholder="Return date">
+					</div>
+					<div class="form-group">
+						<select ng-model="trackingInputs.selectedExchangeOption" ng-options="idx as exchangeOption for (idx, exchangeOption) in exchangeOptions"></select>
+					</div>
+
+					<br />
+
+					<div class="row purchase-cost-math">{{ experience.equipment_rental_cost | currency : nil : 0 }} x {{ purchaseForm.equipment_rental_number_of_days | number : 0 }} days rental</div>
+					<div class="row purchase-cost-shipping-cost" ng-if="purchaseForm.ship">{{ purchaseForm.equipment_rental_shipping_cost | currency : nil : 0 }} shipping</div>
+					<div class="row purchase-cost-delivery-cost" ng-if="purchaseForm.deliver">{{ purchaseForm.equipment_rental_delivery_cost | currency : nil : 0 }} delivery</div>
+					<hr class="small" />
+					<div class="row purchase-cost-total">Subtotal: <strong>{{ purchaseForm.total_cost | currency : nil : 2 }}</strong></div>
+					<div class="row purchase-cost-total">Security deposit: <strong>{{ purchaseForm.equipment_rental_security_deposit | currency : nil : 2 }}</strong></div>
+
+					<br /><br />
+					<button type="button" class="btn btn-primary" ng-click="requestToBorrowButtonClicked()">Request to Borrow</button>
+				</div>
+
+				<div ng-if="experience.experience_guide_available">
+					
+				</div>
+
+				<div ng-if="experience.experience_leader_available">
+					
+				</div>
+
+				<a class="btn btn-default" href="mailto:report@borrowbear.com">Report Experience</a>
+
+				<button class="btn btn-success" ng-if="user.admin && !experience.featured" ng-click="toggleFeaturedStatus()">Feature Experience</button>
+				<button class="btn btn-danger" ng-if="user.admin && experience.featured" ng-click="toggleFeaturedStatus()">Unfeature Experience</button>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-9 content-column">
+			<h2 class="row">{{ experience.title }}<span ng-if="!experience.active"> (deactivated)</span></h2>
+			<p class="row"><span ng-repeat="tag in experience.tags"><a ng-href="/tag/{{ tag.id }}">{{ tag.name }}</a><span ng-show="!$last">, </span></span></p>
+			<ul class="fa-ul">
+				<li ng-if="experience.equipment_rental_available"><i class="fa-li fa fa-compass"></i>Equipment sharing</li>
+				<li ng-if="experience.equipment_rental_available && experience.equipment_rental_deliverable"><i class="fa-li fa fa-car"></i>Local delivery</li>
+				<li ng-if="experience.equipment_rental_available && experience.equipment_rental_pickupable"><i class="fa-li fa fa-bicycle"></i>Local pickup</li>
+				<li ng-if="experience.equipment_rental_available && experience.equipment_rental_shippable"><i class="fa-li fa fa-envelope-o"></i>Shipping</li>
+				<li ng-if="experience.equipment_rental_available && (experience.equipment_rental_deliverable || experience.equipment_rental_pickupable)"><i class="fa-li fa fa-map-signs"></i>Pickup and delivery from {{ experience.pickup_location.formatted_address }}</li>
+
+				<li ng-if="experience.experience_guide_available"><i class="fa-li fa fa-map-o"></i>Digital guidebook</li>
+
+				<li ng-if="experience.experience_leader_available"><i class="fa-li fa fa-users"></i>Guided experience & tour</li>
+				<li ng-if="experience.experience_leader_available"><i class="fa-li fa fa-map-signs"></i>Meet in {{ experience.pickup_location.formatted_address }}</li>				
+			</ul>
+
+			<hr/>
+
+			<p class="row" ng-bind-html="experience.description | linky:'_blank'"></p>
+			
+			<hr/>
+
+			<div class="images container item-gallery">
+				<div class="col-lg-4 col-sm-6 col-xs-12 item" ng-style="{'background-image':'url({{ image_url }})'}" ng-repeat="image_url in experience.image_urls track by $index"></div>
+			</div>
+		</div>
+	</div>
+</div>
